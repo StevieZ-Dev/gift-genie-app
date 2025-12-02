@@ -459,7 +459,10 @@ export default function Home() {
                     </div>
                  </form>
               </div>
-              
+              {/* Hero Image */}
+                 <div className="mt-16 w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl border-4 border-white relative group mx-auto">
+                    <img src="/hero.jpg" alt="Gift Genie AI" className="w-full object-cover hover:scale-105 transition-transform duration-1000" />
+                 </div>
               <AdUnit label="Home Hero Banner" />
 
               {/* Latest Blog Posts Section on Home */}
