@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-// import "./globals.css"; // <--- THIS BRINGS THE COLORS BACK
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Gift Genie AI",
