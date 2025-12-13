@@ -29,8 +29,8 @@ const LaborIllusionLoader = ({ onComplete }: { onComplete: () => void }) => {
 
   useEffect(() => {
     if (index >= steps.length) {
-      setTimeout(onComplete, 500);
-      return;
+      const timer = setTimeout(onComplete, 500);
+      return () => clearTimeout(timer);
     }
     const timer = setTimeout(() => setIndex(i => i + 1), 800);
     return () => clearTimeout(timer);
@@ -205,8 +205,9 @@ export default function Home() {
         
         // @ts-ignore
         setGiftData(processedGifts);
-        setIsLoading(false); // Loader component handles the timing
-    }, 500); // Small delay to let loader mount
+        // We DON'T set isLoading(false) here. 
+        // The Loader Component will call onComplete when it's done.
+    }, 500); 
   };
 
   return (
@@ -219,8 +220,9 @@ export default function Home() {
           {/* LOGO AREA */}
           <div className="flex items-center gap-3 mb-6">
             <div className="w-16 h-16 relative rounded-2xl overflow-hidden shadow-lg border border-white/50">
+               {/* Fixed: Changed to .jpg to match original Gift Genie assets */}
                <img 
-                 src="/logo.png" 
+                 src="/logo.jpg" 
                  alt="Gift Genie Logo" 
                  className="w-full h-full object-cover"
                />
@@ -232,8 +234,9 @@ export default function Home() {
 
           {/* HERO IMAGE AREA */}
           <div className="w-full max-w-2xl aspect-[2/1] relative rounded-3xl overflow-hidden shadow-2xl mb-8 border-4 border-white group">
+            {/* Fixed: Changed to .jpg to match original Gift Genie assets */}
             <img 
-              src="/hero.png" 
+              src="/hero.jpg" 
               alt="AI Gift Finder" 
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
             />
@@ -318,7 +321,8 @@ export default function Home() {
              <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                    <div className="w-8 h-8 relative rounded-lg overflow-hidden">
-                     <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
+                     {/* Fixed: .jpg here as well */}
+                     <img src="/logo.jpg" alt="Logo" className="w-full h-full object-cover" />
                    </div>
                    <span className="font-bold text-xl">GiftGenie</span>
                 </div>
