@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-// import "./globals.css"; // Un-comment this line in your local VS Code if you have the globals.css file
+import "./globals.css"; // <--- UNCOMMENT THIS LINE IN VS CODE TO RESTORE COLORS
 
 export const metadata: Metadata = {
   title: "Gift Genie AI",
