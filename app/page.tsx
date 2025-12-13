@@ -200,7 +200,7 @@ export default function Home() {
         const processedGifts = mockResults.map((gift: any) => ({
              ...gift,
              // Ensure we use your Amazon tag
-             affiliateLink: `https://www.amazon.com/s?k=${encodeURIComponent(gift.title)}&tag=giftgenie-20`
+             affiliateLink: `https://www.amazon.com/s?k=${encodeURIComponent(gift.title)}&tag=giftgenie0c4-20`
         }));
         
         // @ts-ignore
