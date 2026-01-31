@@ -153,7 +153,7 @@ export default function Home() {
   const [showResults, setShowResults] = useState(false);
   const [giftData, setGiftData] = useState([]);
 
-  // Mock data generator for fallback/demo
+  // Mock data generator for fallback
   const generateMockGifts = (q: string) => [
     {
       type: 'SAFE_BET',
@@ -191,6 +191,7 @@ export default function Home() {
     setIsLoading(true);
     setShowResults(false);
 
+    // Simulate API call
     setTimeout(() => {
         const mockResults = generateMockGifts(query);
         const processedGifts = mockResults.map((gift: any) => ({
@@ -201,7 +202,6 @@ export default function Home() {
         
         // @ts-ignore
         setGiftData(processedGifts);
-        // Loader handles the timing
     }, 500); 
   };
 
@@ -268,7 +268,7 @@ export default function Home() {
               </div>
               <h3 className="font-bold text-lg mb-2">Thoughtful & Unique</h3>
               <p className="text-slate-500 text-sm leading-relaxed">
-                Stop buying gift cards. We use psychological profiling.
+                Stop buying gift cards. We use psychological profiling to find unique gifts.
               </p>
             </div>
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
@@ -330,17 +330,3 @@ export default function Home() {
     </main>
   );
 }
-```
-
-**Save** (`Ctrl + S`).
-
----
-
-### **STEP 4: Deploy & Verify**
-
-1.  **Open Terminal**.
-2.  Run:
-    ```bash
-    git add .
-    git commit -m "Hybrid Master Deployment"
-    git push
