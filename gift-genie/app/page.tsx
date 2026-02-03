@@ -36,7 +36,6 @@ const BLOG_ARTICLES = [
     color: 'text-rose-600 bg-rose-100',
     title: "The Ultimate 25 Trending Valentine's Day Gifts (Viral & Aesthetic)",
     // VIDEO: MKBHD "Best Tech Gifts"
-    // REASON: MKBHD never blocks embeds. Highest authority.
     videoId: "Vz9DaaXjMmw", 
     content: (
       <>
@@ -121,7 +120,6 @@ const BLOG_ARTICLES = [
     color: 'text-purple-600 bg-purple-100',
     title: "The Psychology of Gifting: How to Read Minds",
     // VIDEO: "The Perfect Gift" by The School of Life
-    // Educational channel, very safe embed.
     videoId: "5MBtEw9uYJM", 
     content: (
       <>
@@ -171,7 +169,6 @@ const BLOG_ARTICLES = [
     color: 'text-pink-600 bg-pink-100',
     title: "The $50 Rule: How to Fake Wealth",
     // VIDEO: "Best Tech Under $50" - UrAvgConsumer
-    // High production value, verified embeddable.
     videoId: "lQj2y_1j_w4", 
     content: (
       <>
@@ -475,11 +472,10 @@ export default function Home() {
                        <iframe 
                           width="100%" 
                           height="100%" 
-                          src={`https://www.youtube.com/embed/${article.videoId}?origin=${typeof window !== 'undefined' ? window.location.origin : 'https://giftgenie-ai.com'}`}
+                          src={`https://www.youtube-nocookie.com/embed/${article.videoId}?rel=0&modestbranding=1`} 
                           title={article.title}
-                          referrerPolicy="no-referrer"
                           frameBorder="0" 
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                           allowFullScreen
                         ></iframe>
                      </div>
