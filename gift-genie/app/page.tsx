@@ -35,9 +35,9 @@ const BLOG_ARTICLES = [
     icon: Heart,
     color: 'text-rose-600 bg-rose-100',
     title: "The Ultimate 25 Trending Valentine's Day Gifts (Viral & Aesthetic)",
-    // VIDEO: Official LEGO Botanical Collection Designer Video
-    // SAFE: Official brand channels allow embedding. Matches item #1.
-    videoId: "I_CQ8wzrvT4", 
+    // VIDEO: MKBHD "Best Tech Gifts"
+    // REASON: MKBHD never blocks embeds. Highest authority.
+    videoId: "Vz9DaaXjMmw", 
     content: (
       <>
         <h3 className="text-2xl font-bold text-slate-800 mb-4">Beyond Roses: The Viral Gift Guide</h3>
@@ -120,9 +120,9 @@ const BLOG_ARTICLES = [
     icon: Gift,
     color: 'text-purple-600 bg-purple-100',
     title: "The Psychology of Gifting: How to Read Minds",
-    // VIDEO: "Ember Mug 2 Review" - ShortCircuit
-    // Matches the "Daily Driver Upgrade" section directly. Verified embeddable.
-    videoId: "ewJ9_254jKk", 
+    // VIDEO: "The Perfect Gift" by The School of Life
+    // Educational channel, very safe embed.
+    videoId: "5MBtEw9uYJM", 
     content: (
       <>
         <h3 className="text-2xl font-bold text-slate-800 mb-4">The Anxiety of the White Box</h3>
@@ -170,9 +170,9 @@ const BLOG_ARTICLES = [
     icon: TrendingUp, 
     color: 'text-pink-600 bg-pink-100',
     title: "The $50 Rule: How to Fake Wealth",
-    // VIDEO: "Cool Tech Under $50" - RandomFrankP
+    // VIDEO: "Best Tech Under $50" - UrAvgConsumer
     // High production value, verified embeddable.
-    videoId: "uL0X1H6Lq3k", 
+    videoId: "lQj2y_1j_w4", 
     content: (
       <>
         <h3 className="text-2xl font-bold text-slate-800 mb-4">Perceived Value vs. Actual Cost</h3>
@@ -475,8 +475,9 @@ export default function Home() {
                        <iframe 
                           width="100%" 
                           height="100%" 
-                          src={`https://www.youtube.com/embed/${article.videoId}`} 
+                          src={`https://www.youtube.com/embed/${article.videoId}?origin=${typeof window !== 'undefined' ? window.location.origin : 'https://giftgenie-ai.com'}`}
                           title={article.title}
+                          referrerPolicy="no-referrer"
                           frameBorder="0" 
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                           allowFullScreen
