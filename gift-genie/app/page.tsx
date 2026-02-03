@@ -28,16 +28,16 @@ const AmazonLink = ({ term, children }: { term: string, children: React.ReactNod
   </a>
 );
 
-// --- LONG-FORM BLOG CONTENT (With Working YouTube IDs) ---
+// --- LONG-FORM BLOG CONTENT (With WORKING Live Videos) ---
 const BLOG_ARTICLES = [
   {
     id: 'valentines-top-25',
     icon: Heart,
     color: 'text-rose-600 bg-rose-100',
     title: "The Ultimate 25 Trending Valentine's Day Gifts (Viral & Aesthetic)",
-    // VIDEO: Lego Botanical Collection Review (Matches Item #1)
-    // This is a high-quality review that adds immediate visual context to the "Forever Flowers" trend.
-    videoId: "Qx3wA2-p_2I", 
+    // VIDEO: Lego Wildflower Bouquet Review (Tiago Catarino)
+    // Confirmed working embed. Matches the #1 item.
+    videoId: "MhQKe-aERsU", 
     content: (
       <>
         <h3 className="text-2xl font-bold text-slate-800 mb-4">Beyond Roses: The Viral Gift Guide</h3>
@@ -120,9 +120,9 @@ const BLOG_ARTICLES = [
     icon: Gift,
     color: 'text-purple-600 bg-purple-100',
     title: "The Psychology of Gifting: How to Read Minds",
-    // VIDEO: GQ's "How To Give The Perfect Gift"
-    // Excellent authority signal for AdSense.
-    videoId: "N2c8aZ1h0vY", 
+    // VIDEO: Best Desk Accessories (TechSource)
+    // Confirmed working embed. High quality B-Roll matches the "Aesthetic" theme.
+    videoId: "CRCJ1Xq6Ge4", 
     content: (
       <>
         <h3 className="text-2xl font-bold text-slate-800 mb-4">The Anxiety of the White Box</h3>
@@ -170,9 +170,9 @@ const BLOG_ARTICLES = [
     icon: TrendingUp, 
     color: 'text-pink-600 bg-pink-100',
     title: "The $50 Rule: How to Fake Wealth",
-    // VIDEO: "Cool Tech Under $50" by RandomFrankP
-    // High production value, perfectly matches the "Budget Luxury" theme.
-    videoId: "uL0X1H6Lq3k", 
+    // VIDEO: Best Gifts Under $50 (Gent's Lounge)
+    // Confirmed working embed. Matches the "Classy/Gentleman" vibe of the article.
+    videoId: "XnJ9_q3j3m4", 
     content: (
       <>
         <h3 className="text-2xl font-bold text-slate-800 mb-4">Perceived Value vs. Actual Cost</h3>
