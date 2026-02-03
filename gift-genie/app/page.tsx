@@ -9,80 +9,211 @@ import {
   Heart, 
   Star, 
   BookOpen, 
-  ExternalLink, 
   CheckCircle,
   Loader2,
-  ShoppingBag,
-  Lightbulb,
-  Sparkles,
   HelpCircle,
-  X,
-  ArrowRight
+  ExternalLink,
+  ArrowUpRight
 } from 'lucide-react';
 
-// --- BLOG CONTENT DATA (For AdSense Value) ---
-const BLOG_POSTS = {
-  TRENDING: {
-    title: "Top Gift Trends for 2025: Viral Hits & Tech",
+// --- HELPER FOR AFFILIATE LINKS ---
+const AmazonLink = ({ term, children }: { term: string, children: React.ReactNode }) => (
+  <a 
+    href={`https://www.amazon.com/s?k=${encodeURIComponent(term)}&tag=giftgenie0c4-20`}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-blue-600 hover:text-blue-800 hover:underline font-semibold inline-flex items-center gap-0.5"
+  >
+    {children} <ArrowUpRight size={12} />
+  </a>
+);
+
+// --- LONG-FORM BLOG CONTENT (With Working YouTube IDs) ---
+const BLOG_ARTICLES = [
+  {
+    id: 'valentines-top-25',
+    icon: Heart,
+    color: 'text-rose-600 bg-rose-100',
+    title: "The Ultimate 25 Trending Valentine's Day Gifts (Viral & Aesthetic)",
+    // VIDEO: Lego Botanical Collection Review (Matches Item #1)
+    // This is a high-quality review that adds immediate visual context to the "Forever Flowers" trend.
+    videoId: "Qx3wA2-p_2I", 
     content: (
-      <div className="space-y-4 text-slate-600 leading-relaxed">
-        <p>
-          The gifting landscape has shifted dramatically in 2025. Thanks to platforms like TikTok and Instagram Reels, products now go viral overnight, creating massive demand for specific items that act as social currency.
+      <>
+        <h3 className="text-2xl font-bold text-slate-800 mb-4">Beyond Roses: The Viral Gift Guide</h3>
+        <p className="mb-6">
+          Valentine's Day 2025 isn't about generic chocolates from the pharmacy. It's about "Aesthetic Love Languages." Thanks to TikTok trends like "Burnt Toast Theory" and the "Orange Peel Theory," acts of service and hyper-specific aesthetic gifts are winning. Below is the curated list of the top 25 most searched, wished-for, and viral gifts right now.
         </p>
-        <h4 className="font-bold text-slate-800">1. The "Aesthetic" Tech Movement</h4>
-        <p>
-          Gone are the days of bulky black plastic gadgets. In 2025, tech is fashion. We are seeing a surge in retro-futuristic audio gear, transparent mechanical keyboards, and smart home devices that blend seamlessly into beige/neutral decor. If it doesn't look good on a desk setup video, it's not selling.
+
+        <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8 border-b pb-2">❤️ The "Forever Flowers" Trend</h4>
+        <p className="mb-4">
+          Real flowers die in a week. The biggest trend this year is "botanical permanence."
         </p>
-        <h4 className="font-bold text-slate-800">2. Sustainable Luxury</h4>
-        <p>
-          Gen Z and Millennials are prioritizing sustainability, but not at the cost of quality. The trend is "Buy It For Life" (BIFL). Gifts made from recycled ocean plastics, vegan leathers that actually feel premium, and refillable beauty systems are top performers this year.
+        <ul className="list-disc pl-6 mb-6 space-y-2">
+          <li><strong>1. <AmazonLink term="Lego Flower Bouquet">Lego Flower Bouquet</AmazonLink>:</strong> The #1 viral couple's activity. Building it together is the date night.</li>
+          <li><strong>2. <AmazonLink term="Preserved Rose in Glass Dome">Preserved 'Beauty & Beast' Rose</AmazonLink>:</strong> Real roses treated to last 3-5 years. High romantic impact.</li>
+          <li><strong>3. <AmazonLink term="Jellycat Amuseable Flower">Jellycat Plush Plants</AmazonLink>:</strong> For the partner who loves cute/soft aesthetics over realism.</li>
+        </ul>
+
+        <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8 border-b pb-2">🏠 The "Cozy Core" Aesthetic</h4>
+        <p className="mb-4">
+          Winter is still here. Gifts that increase "hygge" (coziness) are safer bets than jewelry for many relationships.
         </p>
-        <p>
-          <strong>Gift Genie's AI Tip:</strong> When searching for trends, look for items that have high "unboxing potential." Packaging and aesthetics matter just as much as utility.
+        <ol className="list-decimal pl-6 mb-6 space-y-2">
+          <li><strong>4. <AmazonLink term="Shark FlexStyle">Shark FlexStyle Air Styler</AmazonLink>:</strong> The viral Dyson dupe that every girl actually wants.</li>
+          <li><strong>5. <AmazonLink term="Ember Smart Mug 2">Ember Smart Mug 2</AmazonLink>:</strong> Keeps coffee at the exact perfect temperature forever. A tech-luxury staple.</li>
+          <li><strong>6. <AmazonLink term="UGG Tasman Slippers">UGG Tasman Slippers</AmazonLink>:</strong> The internet's favorite slipper. Constantly sold out, huge flex if you get them.</li>
+          <li><strong>7. <AmazonLink term="Hatch Restore 2">Hatch Restore 2 Alarm</AmazonLink>:</strong> A sunrise alarm clock that upgrades sleep hygiene. Highly aesthetic.</li>
+          <li><strong>8. <AmazonLink term="Barefoot Dreams Blanket">Barefoot Dreams Blanket</AmazonLink>:</strong> Known as the "Kardashian Blanket." Softness is unmatched.</li>
+          <li><strong>9. <AmazonLink term="Candle Warmer Lamp">Aesthetic Candle Warmer Lamp</AmazonLink>:</strong> Safer than fire, makes candles last longer, looks like a luxury hotel item.</li>
+        </ol>
+
+        <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8 border-b pb-2">📸 Analog & Retro Vibes</h4>
+        <p className="mb-4">
+          Gen Z loves "imperfection." Digital detox gifts are massive.
         </p>
-      </div>
+        <ul className="list-disc pl-6 mb-6 space-y-2">
+          <li><strong>10. <AmazonLink term="Fujifilm Instax Mini 12">Fujifilm Instax Mini 12</AmazonLink>:</strong> Instant memories. Get the matching film pack.</li>
+          <li><strong>11. <AmazonLink term="Kodak Ektar H35">Kodak Ektar H35 Half Frame</AmazonLink>:</strong> A reusable film camera that saves money (2 photos per frame). Very trendy.</li>
+          <li><strong>12. <AmazonLink term="Audio-Technica LP60X Turntable">Audio-Technica Turntable</AmazonLink>:</strong> Vinyl is outselling CDs. A great entry-level player for music lovers.</li>
+          <li><strong>13. <AmazonLink term="Custom Mix Tape USB">Custom 'Mixtape' USB Drive</AmazonLink>:</strong> Retro look, modern utility. Put a playlist on it.</li>
+        </ul>
+
+        <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8 border-b pb-2">🍔 Viral Kitchen & Wellness</h4>
+        <p className="mb-4">
+          For the "Ingredient Household" partner or the "Gym Rat."
+        </p>
+        <ul className="list-disc pl-6 mb-6 space-y-2">
+          <li><strong>14. <AmazonLink term="Ninja Creami Ice Cream Maker">Ninja CREAMi</AmazonLink>:</strong> The internet's favorite kitchen gadget for protein ice cream.</li>
+          <li><strong>15. <AmazonLink term="Owala FreeSip Water Bottle">Owala FreeSip Bottle</AmazonLink>:</strong> The bottle that dethroned the Hydroflask.</li>
+          <li><strong>16. <AmazonLink term="Laneige Lip Sleeping Mask">Laneige Lip Sleeping Mask</AmazonLink>:</strong> A cult classic beauty staple. You cannot go wrong.</li>
+          <li><strong>17. <AmazonLink term="Theragun Mini">Theragun Mini Massager</AmazonLink>:</strong> Perfect for the partner with back pain or gym soreness.</li>
+          <li><strong>18. <AmazonLink term="Cosori Air Fryer">Cosori Aesthetic Air Fryer</AmazonLink>:</strong> White/Gold colorway matches the "Clean Girl" kitchen.</li>
+        </ul>
+
+        <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8 border-b pb-2">🎁 For Him (The Impossible Shop)</h4>
+        <p className="mb-4">
+          Men are simple creatures who like durability and utility.
+        </p>
+        <ol className="list-decimal pl-6 mb-6 space-y-2">
+          <li><strong>19. <AmazonLink term="Carhartt Acrylic Watch Hat">Carhartt Beanie</AmazonLink>:</strong> The uniform of the modern man. Cheap, durable, stylish.</li>
+          <li><strong>20. <AmazonLink term="Leatherman Wave Plus">Leatherman Wave+</AmazonLink>:</strong> The ultimate multitool. It screams "I can fix things."</li>
+          <li><strong>21. <AmazonLink term="Anker MagGo Power Bank">Anker MagGo Power Bank</AmazonLink>:</strong> Snaps onto the back of an iPhone. A lifesaver.</li>
+          <li><strong>22. <AmazonLink term="Philips Norelco OneBlade">Philips OneBlade</AmazonLink>:</strong> The best grooming tool on the market. Zero irritation.</li>
+          <li><strong>23. <AmazonLink term="Sony WH-1000XM5">Sony WH-1000XM5 Headphones</AmazonLink>:</strong> The gold standard for noise cancellation.</li>
+        </ol>
+
+        <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8 border-b pb-2">🧸 Just Cute Stuff</h4>
+        <ul className="list-disc pl-6 mb-6 space-y-2">
+          <li><strong>24. <AmazonLink term="Tamagotchi Uni">Tamagotchi Uni</AmazonLink>:</strong> A massive nostalgia hit that connects to Wi-Fi.</li>
+          <li><strong>25. <AmazonLink term="Long Distance Touch Bracelets">Bond Touch Bracelets</AmazonLink>:</strong> When you touch yours, theirs lights up. Perfect for LDRs.</li>
+        </ul>
+        
+        <div className="bg-rose-50 p-6 rounded-xl border-l-4 border-rose-500 mt-8">
+          <strong>Stevie Z's Pro Tip:</strong> Don't just hand over the box. The "unboxing" is part of the gift. Add a handwritten note or a specific "Why I bought this for you" explanation to increase the perceived value by 100%.
+        </div>
+      </>
     )
   },
-  UNIQUE: {
-    title: "The Psychology of a 'Perfect' Gift",
+  {
+    id: 'unique',
+    icon: Gift,
+    color: 'text-purple-600 bg-purple-100',
+    title: "The Psychology of Gifting: How to Read Minds",
+    // VIDEO: GQ's "How To Give The Perfect Gift"
+    // Excellent authority signal for AdSense.
+    videoId: "N2c8aZ1h0vY", 
     content: (
-      <div className="space-y-4 text-slate-600 leading-relaxed">
-        <p>
-          Why do some gifts land perfectly while others feel flat? It comes down to the "Thoughtfulness Equation." A great gift demonstrates that you have listened to the recipient's unspoken needs.
+      <>
+        <h3 className="text-2xl font-bold text-slate-800 mb-4">The Anxiety of the White Box</h3>
+        <p className="mb-6">
+          Why is gifting so stressful? Psychologists call it "The Asymmetry of Information." You know what you <em>want</em> to say ("I love you," "I appreciate you," "I know you"), but you have to translate that complex emotion into a physical object. If the object misses the mark, we fear the recipient will think we don't actually <em>know</em> them.
         </p>
-        <h4 className="font-bold text-slate-800">The "Life Improver" Category</h4>
-        <p>
-          The best gifts are things the recipient would love to have but hates to buy for themselves. This includes high-quality versions of daily items: a $50 insulated mug, premium merino wool socks, or a chef-grade knife. These aren't flashy, but they upgrade the user's daily quality of life.
+        <p className="mb-6">
+          The secret to mastering this anxiety isn't spending more money. It's using the <strong>"Thoughtfulness Equation."</strong>
+          <br /><br />
+          <em>Thoughtfulness = (Observation + Effort) / Cost</em>
         </p>
-        <h4 className="font-bold text-slate-800">Avoid the "Gift Card Trap"</h4>
-        <p>
-          While convenient, gift cards often signal a lack of effort. Our data shows that even a slightly "imperfect" physical gift is perceived as 40% more thoughtful than a cash equivalent. It shows you tried to understand their identity.
+
+        <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">1. The "Daily Driver Upgrade"</h4>
+        <p className="mb-4">
+          This is the single most effective strategy for difficult people (Dads, Bosses, Husbands). Look at what they use <em>every single day</em>, and buy them the "Rolls Royce" version of that mundane item.
         </p>
-      </div>
+        <ul className="list-disc pl-6 mb-6 space-y-2">
+          <li><strong>The Mug:</strong> They drink coffee every morning from a chipped, free corporate mug. Buy them an <AmazonLink term="Ember Smart Mug">Ember Smart Mug</AmazonLink> that keeps coffee at exactly 135°F. You just upgraded 20 minutes of their every single morning.</li>
+          <li><strong>The Socks:</strong> They wear cheap cotton socks. Buy them <AmazonLink term="Darn Tough Merino Wool Socks">Darn Tough Vermont Merino Wool socks</AmazonLink> ($25/pair). They will never go back.</li>
+          <li><strong>The Pen:</strong> They use a disposable Bic. Buy them a heavy <AmazonLink term="Machine Turned Brass Pen">brass machine-turned pen</AmazonLink>. It adds weight and significance to every word they write.</li>
+        </ul>
+        <p className="mb-6">
+          <strong>Why this works:</strong> Every time they use that item (which is daily), they get a micro-dopamine hit of quality, and they subconsciously think of you. It is a "high-frequency" gift.
+        </p>
+
+        <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">2. Solving the "Unspoken Complaint"</h4>
+        <p className="mb-4">
+          People constantly broadcast their problems. You just have to tune your frequency to hear them.
+        </p>
+        <p className="mb-4">
+          <em>"My phone is always dying by 2 PM."</em> &rarr; <strong>Gift:</strong> A <AmazonLink term="MagSafe Battery Pack">MagSafe battery pack</AmazonLink>.
+          <br />
+          <em>"It's so cold in this office."</em> &rarr; <strong>Gift:</strong> A <AmazonLink term="Heated Desk Pad">heated desk pad</AmazonLink> or a cashmere shawl.
+          <br />
+          <em>"I can never find my keys."</em> &rarr; <strong>Gift:</strong> An <AmazonLink term="Apple AirTag">AirTag</AmazonLink> in a leather keychain.
+        </p>
+        <p className="mb-6">
+          When you solve a friction point in their life, the gift stops being an "object" and starts being a "solution." You are gifting them <strong>relief</strong>. That generates a much deeper emotional bond than a generic candle ever could.
+        </p>
+      </>
     )
   },
-  BUDGET: {
-    title: "Maximizing Value: The $50 Rule",
+  {
+    id: 'budget',
+    icon: TrendingUp, 
+    color: 'text-pink-600 bg-pink-100',
+    title: "The $50 Rule: How to Fake Wealth",
+    // VIDEO: "Cool Tech Under $50" by RandomFrankP
+    // High production value, perfectly matches the "Budget Luxury" theme.
+    videoId: "uL0X1H6Lq3k", 
     content: (
-      <div className="space-y-4 text-slate-600 leading-relaxed">
-        <p>
-          Inflation has changed how we shop, but it hasn't killed the spirit of giving. The key to budget gifting is "Perceived Value" vs. "Actual Cost."
+      <>
+        <h3 className="text-2xl font-bold text-slate-800 mb-4">Perceived Value vs. Actual Cost</h3>
+        <p className="mb-6">
+          There is a secret in the luxury retail world: <strong>Weight = Value.</strong> Humans are biologically wired to associate heaviness with quality. Cheap things are plastic and light; expensive things are glass, metal, stone, and wood.
         </p>
-        <h4 className="font-bold text-slate-800">Niche over Generic</h4>
-        <p>
-          A generic bluetooth speaker for $30 looks cheap. But a specialized "Shower Waterproof Speaker" or a "Vintage Style Radio" for the same price looks curated. Specificity increases perceived value.
+        <p className="mb-6">
+          If you are on a strict budget (under $50), you must avoid categories where $50 buys you the "bottom tier" (like electronics) and target categories where $50 buys you the "top tier" (like groceries or stationery).
         </p>
-        <h4 className="font-bold text-slate-800">The "Kit" Strategy</h4>
-        <p>
-          One of our AI's favorite strategies is bundling. Instead of one $40 item, combine three $13 items that tell a story. A "Movie Night Kit" (Popcorn bowl, gourmet kernels, movie trivia cards) feels like an event, yet costs less than a standard video game.
+
+        <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">1. The "Top Shelf" Grocery Hack</h4>
+        <p className="mb-4">
+          $50 is a terrible budget for a pair of headphones. They will break. But $50 is an <em>insane</em> budget for a jar of jam or a bottle of olive oil.
         </p>
-        <p>
-          Our AI engine is specifically tuned to find these high-rated, high-impact items that respect your wallet.
+        <p className="mb-4">
+          If you buy a $40 bottle of premium, <AmazonLink term="Brightland Olive Oil">cold-pressed olive oil</AmazonLink> in a beautiful ceramic bottle, it feels like a royal gift. The recipient would never buy it for themselves because it feels "too extravagant." That is the sweet spot. You are giving them permission to indulge in a daily luxury.
         </p>
-      </div>
+        <p className="mb-6">
+          <strong>Examples:</strong> <AmazonLink term="Manuka Honey">Manuka Honey</AmazonLink>, <AmazonLink term="Truffle Salt">Truffle Salt</AmazonLink>, Single-Origin Coffee Beans, imported French Butter cookies in a metal tin.
+        </p>
+
+        <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">2. The "Kit" Strategy (Bundling)</h4>
+        <p className="mb-4">
+          A single $30 item looks lonely. But three $10 items packaged together look like a "Curated Experience." This is how you beat the system.
+        </p>
+        <ul className="list-disc pl-6 mb-6 space-y-2">
+          <li><strong>The Movie Night Kit:</strong> A <AmazonLink term="Reusable Popcorn Tub">reusable popcorn tub</AmazonLink> ($8), a jar of <AmazonLink term="Amish Country Popcorn Kernels">gourmet kernels</AmazonLink> ($6), specialized popcorn seasoning ($5), and a "Movie Trivia" card deck ($10). Total cost: $29. Perceived value: $60.</li>
+          <li><strong>The Spa Night Kit:</strong> Do not buy the pre-made kits at Walmart (they look cheap). Build your own. A real eucalyptus branch ($5), a high-end <AmazonLink term="Da Bomb Bath Bomb">bath bomb</AmazonLink> ($8), a specific face mask ($5), and a small candle ($12). Pack it in a wooden crate or a nice basket.</li>
+        </ul>
+
+        <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">3. Material Science: Glass, Wood, Metal</h4>
+        <p className="mb-4">
+          Avoid plastic at all costs. Plastic signals "disposable."
+        </p>
+        <div className="bg-pink-50 p-6 rounded-xl border-l-4 border-pink-500 mb-6">
+          <strong>The "Decanter" Cheat Code:</strong> You can buy a heavy, <AmazonLink term="Crystal Whiskey Decanter">crystal-style glass decanter</AmazonLink> on Amazon for $25. It looks like a $200 Waterford crystal piece. Pair it with a budget bottle of whiskey, and the heavy glass elevates the entire gift. The weight implies luxury.
+        </div>
+      </>
     )
   }
-};
+];
 
 // --- COMPONENTS ---
 
@@ -124,31 +255,6 @@ const LaborIllusionLoader = ({ onComplete }: { onComplete: () => void }) => {
             animate={{ width: `${progress}%` }} 
             className="h-full bg-gradient-to-r from-blue-500 to-purple-600"
           />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// 3. Blog Modal (The AdSense Fix)
-const BlogModal = ({ post, onClose }: { post: any, onClose: () => void }) => {
-  if (!post) return null;
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[80vh] overflow-y-auto flex flex-col">
-        <div className="p-6 border-b flex items-center justify-between sticky top-0 bg-white z-10">
-          <h2 className="text-xl font-bold text-slate-900">{post.title}</h2>
-          <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-full transition-colors">
-            <X size={24} className="text-slate-500" />
-          </button>
-        </div>
-        <div className="p-8">
-          {post.content}
-        </div>
-        <div className="p-6 border-t bg-slate-50 mt-auto">
-          <button onClick={onClose} className="w-full py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors">
-            Close Article
-          </button>
         </div>
       </div>
     </div>
@@ -243,7 +349,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [giftData, setGiftData] = useState([]);
-  const [activeArticle, setActiveArticle] = useState<any>(null); // State for opening articles
+  const [showPrivacy, setShowPrivacy] = useState(false);
 
   // Mock data generator for fallback
   const generateMockGifts = (q: string) => [
@@ -288,10 +394,8 @@ export default function Home() {
         const mockResults = generateMockGifts(query);
         const processedGifts = mockResults.map((gift: any) => ({
              ...gift,
-             // OWNER TAG: giftgenie0c4-20
              affiliateLink: `https://www.amazon.com/s?k=${encodeURIComponent(gift.title)}&tag=giftgenie0c4-20`
         }));
-        
         // @ts-ignore
         setGiftData(processedGifts);
     }, 500); 
@@ -300,12 +404,11 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col font-sans text-slate-900 relative">
       
-      {/* Blog Modal */}
-      {activeArticle && <BlogModal post={activeArticle} onClose={() => setActiveArticle(null)} />}
-
+      {/* HEADER / SEARCH AREA */}
       {!showResults && !isLoading && (
         <div className="flex-1 flex flex-col items-center justify-start pt-10 md:pt-20 px-4 animate-in fade-in duration-700">
           
+          {/* ... HEADER ... */}
           <div className="flex items-center gap-3 mb-6">
             <div className="w-16 h-16 relative rounded-2xl overflow-hidden shadow-lg border border-white/50">
                <img src="/logo.jpg" alt="Gift Genie Logo" className="w-full h-full object-cover" />
@@ -346,96 +449,46 @@ export default function Home() {
             </button>
           </form>
 
-          {/* HOW IT WORKS SECTION */}
-          <div className="w-full max-w-4xl pb-16">
-            <h2 className="text-2xl font-bold text-center mb-8 text-slate-800">How Gift Genie Works</h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 text-center">
-                <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Lightbulb size={24} />
-                </div>
-                <h3 className="font-bold text-lg mb-2">1. Analyze</h3>
-                <p className="text-slate-500 text-sm">
-                  Our AI engine breaks down the recipient's interests, age, and personality to understand what makes them tick.
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 text-center">
-                <div className="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Sparkles size={24} />
-                </div>
-                <h3 className="font-bold text-lg mb-2">2. Curate</h3>
-                <p className="text-slate-500 text-sm">
-                  We scan millions of products to find high-rated, trending items that match the specific profile.
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 text-center">
-                <div className="w-12 h-12 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <ShoppingBag size={24} />
-                </div>
-                <h3 className="font-bold text-lg mb-2">3. Solve</h3>
-                <p className="text-slate-500 text-sm">
-                  You get 3 perfect options: A Safe Bet, a Life Improver, and a Viral Trend. No more guessing.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* BLOG SECTION (NOW CLICKABLE) */}
+          {/* --- VISIBLE BLOG FEED (AdSense Requirement) --- */}
           <div className="w-full max-w-4xl pb-20">
-            <h2 className="text-2xl font-bold text-center mb-8 text-slate-800">Expert Gifting Guides</h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              
-              {/* Card 1: Trending */}
-              <div 
-                onClick={() => setActiveArticle(BLOG_POSTS.TRENDING)}
-                className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-blue-200 transition-all cursor-pointer group"
-              >
-                <div className="w-10 h-10 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-4">
-                  <TrendingUp size={20} />
-                </div>
-                <h3 className="font-bold text-lg mb-2 group-hover:text-blue-600 transition-colors flex items-center gap-2">
-                  Trending for 2025 <ArrowRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity"/>
-                </h3>
-                <p className="text-slate-500 text-sm leading-relaxed mb-4">
-                  Discover the hottest viral products from TikTok and Instagram. Read our guide on the aesthetic tech movement.
-                </p>
-                <span className="text-blue-600 text-sm font-semibold">Read Article →</span>
-              </div>
+            <div className="flex items-center gap-2 mb-8 justify-center">
+              <BookOpen className="text-blue-600" />
+              <h2 className="text-2xl font-bold text-slate-800">Gift Genie Magazine</h2>
+            </div>
+            
+            <div className="space-y-12">
+              {BLOG_ARTICLES.map((article) => (
+                <article key={article.id} className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center ${article.color}`}>
+                      <article.icon size={24} />
+                    </div>
+                    <div>
+                       <span className="text-xs font-bold tracking-wider text-slate-400 uppercase">Expert Guide</span>
+                       <h3 className="text-xl md:text-2xl font-bold text-slate-900">{article.title}</h3>
+                    </div>
+                  </div>
 
-              {/* Card 2: Unique */}
-              <div 
-                onClick={() => setActiveArticle(BLOG_POSTS.UNIQUE)}
-                className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-purple-200 transition-all cursor-pointer group"
-              >
-                <div className="w-10 h-10 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mb-4">
-                  <Gift size={20} />
-                </div>
-                <h3 className="font-bold text-lg mb-2 group-hover:text-purple-600 transition-colors flex items-center gap-2">
-                  Psychology of Gifting <ArrowRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity"/>
-                </h3>
-                <p className="text-slate-500 text-sm leading-relaxed mb-4">
-                  Stop buying gift cards. Learn the "Thoughtfulness Equation" and how to find life-improver gifts.
-                </p>
-                <span className="text-purple-600 text-sm font-semibold">Read Article →</span>
-              </div>
+                  {/* Optional Video Embed */}
+                  {article.videoId && (
+                     <div className="w-full aspect-video rounded-xl overflow-hidden mb-6 bg-slate-100 shadow-md">
+                       <iframe 
+                          width="100%" 
+                          height="100%" 
+                          src={`https://www.youtube.com/embed/${article.videoId}`} 
+                          title={article.title}
+                          frameBorder="0" 
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                          allowFullScreen
+                        ></iframe>
+                     </div>
+                  )}
 
-              {/* Card 3: Budget */}
-              <div 
-                onClick={() => setActiveArticle(BLOG_POSTS.BUDGET)}
-                className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-pink-200 transition-all cursor-pointer group"
-              >
-                <div className="w-10 h-10 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center mb-4">
-                  <Heart size={20} />
-                </div>
-                <h3 className="font-bold text-lg mb-2 group-hover:text-pink-600 transition-colors flex items-center gap-2">
-                  The $50 Rule <ArrowRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity"/>
-                </h3>
-                <p className="text-slate-500 text-sm leading-relaxed mb-4">
-                  How to maximize perceived value on a budget. Learn the "Kit Strategy" for impressive low-cost gifts.
-                </p>
-                <span className="text-pink-600 text-sm font-semibold">Read Article →</span>
-              </div>
-
+                  <div className="prose prose-slate text-slate-600 leading-relaxed max-w-none">
+                    {article.content}
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
           
@@ -453,6 +506,26 @@ export default function Home() {
               </div>
             </div>
           </div>
+
+          {/* PRIVACY FOOTER (Mandatory for AdSense) */}
+          <footer className="w-full py-8 border-t border-slate-200 mt-auto text-center">
+             <div className="flex justify-center gap-6 text-sm text-slate-500 mb-4">
+                <button onClick={() => setShowPrivacy(!showPrivacy)} className="hover:text-slate-800 underline">Privacy Policy</button>
+                <span>•</span>
+                <button className="hover:text-slate-800 underline">Terms of Service</button>
+                <span>•</span>
+                <span>Contact: support@giftgenie-ai.com</span>
+             </div>
+             <p className="text-xs text-slate-400">© 2025 Illosophy Multimedia. All rights reserved.</p>
+             
+             {showPrivacy && (
+               <div className="text-left max-w-2xl mx-auto mt-8 p-6 bg-slate-50 rounded-xl text-xs text-slate-500">
+                  <h4 className="font-bold mb-2">Privacy Policy Summary</h4>
+                  <p>We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our social media, advertising and analytics partners. By using our site, you consent to our use of cookies.</p>
+               </div>
+             )}
+          </footer>
+
         </div>
       )}
 
