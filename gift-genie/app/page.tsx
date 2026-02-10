@@ -46,12 +46,12 @@ const GameAd = () => {
 
   return (
     <div className="my-6 flex justify-center bg-slate-800 rounded-lg overflow-hidden border border-slate-700">
-      {/* INSTRUCTION: Replace "YOUR_AD_SLOT_ID_HERE" with your actual Google AdSense Unit ID */}
+      {/* GAME OVER AD UNIT */}
       <ins
         className="adsbygoogle"
         style={{ display: 'inline-block', width: '300px', height: '250px' }}
         data-ad-client="ca-pub-6068418321673019"
-        data-ad-slot="YOUR_AD_SLOT_ID_HERE" 
+        data-ad-slot="5336115674" 
       ></ins>
     </div>
   );
@@ -381,7 +381,7 @@ const SecretVaultModal = ({ onClose }: { onClose: () => void }) => {
   );
 };
 
-// --- LONG-FORM BLOG CONTENT (FULL TEXT RESTORED) ---
+// --- LONG-FORM BLOG CONTENT ---
 const BLOG_ARTICLES = [
   {
     id: 'valentines-top-25',
@@ -533,7 +533,7 @@ const BLOG_ARTICLES = [
     icon: TrendingUp, 
     color: 'text-pink-600 bg-pink-100',
     title: "The $50 Rule: How to Fake Wealth",
-    // NO VIDEO ID HERE
+    videoId: "lQj2y_1j_w4", 
     content: (
       <>
         <h3 className="text-2xl font-bold text-slate-800 mb-4">Perceived Value vs. Actual Cost</h3>
@@ -560,7 +560,8 @@ const BLOG_ARTICLES = [
           A single $30 item looks lonely. But three $10 items packaged together look like a "Curated Experience." This is how you beat the system.
         </p>
         <ul className="list-disc pl-6 mb-6 space-y-2">
-          <li><strong>The Movie Night Kit:</strong> A <AmazonLink term="Reusable Popcorn Tub">reusable popcorn tub</AmazonLink> ($8), a jar of <AmazonLink term="Amish Country Popcorn Kernels">gourmet kernels</AmazonLink> ($6), specialized popcorn seasoning ($5), and a "Movie Trivia" card deck ($10). Total cost: $29. Perceived value: $60.</li>
+          <li><strong>The Movie Night Kit:</strong> A <AmazonLink term="Reusable Popcorn Tub">reusable popcorn tub</AmazonLink> ($8), a jar of <AmazonLink term="Amish Country Popcorn Kernels">gourmet kernels</AmazonLink> ($6), specialized popcorn seasoning ($5), and a "Movie Trivia" card deck ($10). Total cost: $29. Perceived value: $60.
+          </li>
           <li><strong>The Spa Night Kit:</strong> Do not buy the pre-made kits at Walmart (they look cheap). Build your own. A real eucalyptus branch ($5), a high-end <AmazonLink term="Da Bomb Bath Bomb">bath bomb</AmazonLink> ($8), a specific face mask ($5), and a small candle ($12). Pack it in a wooden crate or a nice basket.</li>
         </ul>
 
@@ -622,11 +623,7 @@ export default function Home() {
     e.preventDefault();
     if (!query.trim()) return;
 
-    // Reset States to clear previous searches
-    setShowSecret(false);
-    setShowGame(false);
-    setShowResults(false);
-
+    // --- SECRET TRIGGERS ---
     const lowerQ = query.trim().toLowerCase();
     
     if (lowerQ === 'golden lamp') {
@@ -638,8 +635,10 @@ export default function Home() {
       setShowGame(true);
       return;
     }
+    // -----------------------
 
     setIsLoading(true);
+    setShowResults(false);
 
     setTimeout(() => {
         const mockResults = generateMockGifts(query);
@@ -649,8 +648,6 @@ export default function Home() {
         }));
         // @ts-ignore
         setGiftData(processedGifts);
-        setIsLoading(false);
-        setShowResults(true);
     }, 500); 
   };
 
