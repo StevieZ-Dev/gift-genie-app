@@ -206,13 +206,13 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
         {gameState === 'START' && (
           <div className="w-full relative">
             {/* HERO IMAGE */}
-            <div className="w-full h-64 relative">
+            <div className="w-full h-64 relative bg-slate-800">
                <img 
-                 src="/genie-rush.png" 
+                 // UPDATED TO JPG
+                 src="/genie-rush.jpg" 
                  alt="Genie's Gift Rush" 
                  className="w-full h-full object-cover"
                  onError={(e) => {
-                    // Fallback if user hasn't uploaded image yet
                     (e.target as HTMLImageElement).style.display = 'none'; 
                  }}
                />
@@ -329,7 +329,7 @@ const SecretVaultModal = ({ onClose }: { onClose: () => void }) => {
   );
 };
 
-// --- LONG-FORM BLOG CONTENT (RESTORING FULL LIST & LINKS) ---
+// --- LONG-FORM BLOG CONTENT ---
 const BLOG_ARTICLES = [
   {
     id: 'valentines-top-25',
@@ -344,61 +344,18 @@ const BLOG_ARTICLES = [
         <p className="mb-6">
           Valentine's Day 2025 isn't about generic chocolates from the pharmacy. It's about "Aesthetic Love Languages." Below is the curated list of the top 25 most searched, wished-for, and viral gifts right now.
         </p>
-
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8 border-b pb-2">❤️ The "Forever Flowers" Trend</h4>
         <ul className="list-disc pl-6 mb-6 space-y-2">
           <li><strong>1. <AmazonLink term="Lego Flower Bouquet">Lego Flower Bouquet</AmazonLink>:</strong> The #1 viral couple's activity. Building it together is the date night.</li>
           <li><strong>2. <AmazonLink term="Preserved Rose in Glass Dome">Preserved 'Beauty & Beast' Rose</AmazonLink>:</strong> Real roses treated to last 3-5 years. High romantic impact.</li>
-          <li><strong>3. <AmazonLink term="Jellycat Amuseable Flower">Jellycat Plush Plants</AmazonLink>:</strong> For the partner who loves cute/soft aesthetics over realism.</li>
         </ul>
-
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8 border-b pb-2">🏠 The "Cozy Core" Aesthetic</h4>
         <ol className="list-decimal pl-6 mb-6 space-y-2">
           <li><strong>4. <AmazonLink term="Shark FlexStyle">Shark FlexStyle Air Styler</AmazonLink>:</strong> The viral Dyson dupe that every girl actually wants.</li>
           <li><strong>5. <AmazonLink term="Ember Smart Mug 2">Ember Smart Mug 2</AmazonLink>:</strong> Keeps coffee at the exact perfect temperature forever. A tech-luxury staple.</li>
-          <li><strong>6. <AmazonLink term="UGG Tasman Slippers">UGG Tasman Slippers</AmazonLink>:</strong> The internet's favorite slipper. Constantly sold out, huge flex if you get them.</li>
-          <li><strong>7. <AmazonLink term="Hatch Restore 2">Hatch Restore 2 Alarm</AmazonLink>:</strong> A sunrise alarm clock that upgrades sleep hygiene. Highly aesthetic.</li>
-          <li><strong>8. <AmazonLink term="Barefoot Dreams Blanket">Barefoot Dreams Blanket</AmazonLink>:</strong> Known as the "Kardashian Blanket." Softness is unmatched.</li>
-          <li><strong>9. <AmazonLink term="Candle Warmer Lamp">Aesthetic Candle Warmer Lamp</AmazonLink>:</strong> Safer than fire, makes candles last longer, looks like a luxury hotel item.</li>
         </ol>
-
-        <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8 border-b pb-2">📸 Analog & Retro Vibes</h4>
-        <p className="mb-4">Gen Z loves "imperfection." Digital detox gifts are massive.</p>
-        <ul className="list-disc pl-6 mb-6 space-y-2">
-          <li><strong>10. <AmazonLink term="Fujifilm Instax Mini 12">Fujifilm Instax Mini 12</AmazonLink>:</strong> Instant memories. Get the matching film pack.</li>
-          <li><strong>11. <AmazonLink term="Kodak Ektar H35">Kodak Ektar H35 Half Frame</AmazonLink>:</strong> A reusable film camera that saves money (2 photos per frame). Very trendy.</li>
-          <li><strong>12. <AmazonLink term="Audio-Technica LP60X Turntable">Audio-Technica Turntable</AmazonLink>:</strong> Vinyl is outselling CDs. A great entry-level player for music lovers.</li>
-          <li><strong>13. <AmazonLink term="Custom Mix Tape USB">Custom 'Mixtape' USB Drive</AmazonLink>:</strong> Retro look, modern utility. Put a playlist on it.</li>
-        </ul>
-
-        <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8 border-b pb-2">🍔 Viral Kitchen & Wellness</h4>
-        <p className="mb-4">For the "Ingredient Household" partner or the "Gym Rat."</p>
-        <ul className="list-disc pl-6 mb-6 space-y-2">
-          <li><strong>14. <AmazonLink term="Ninja Creami Ice Cream Maker">Ninja CREAMi</AmazonLink>:</strong> The internet's favorite kitchen gadget for protein ice cream.</li>
-          <li><strong>15. <AmazonLink term="Owala FreeSip Water Bottle">Owala FreeSip Bottle</AmazonLink>:</strong> The bottle that dethroned the Hydroflask.</li>
-          <li><strong>16. <AmazonLink term="Laneige Lip Sleeping Mask">Laneige Lip Sleeping Mask</AmazonLink>:</strong> A cult classic beauty staple. You cannot go wrong.</li>
-          <li><strong>17. <AmazonLink term="Theragun Mini">Theragun Mini Massager</AmazonLink>:</strong> Perfect for the partner with back pain or gym soreness.</li>
-          <li><strong>18. <AmazonLink term="Cosori Air Fryer">Cosori Aesthetic Air Fryer</AmazonLink>:</strong> White/Gold colorway matches the "Clean Girl" kitchen.</li>
-        </ul>
-
-        <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8 border-b pb-2">🎁 For Him (The Impossible Shop)</h4>
-        <p className="mb-4">Men are simple creatures who like durability and utility.</p>
-        <ol className="list-decimal pl-6 mb-6 space-y-2">
-          <li><strong>19. <AmazonLink term="Carhartt Acrylic Watch Hat">Carhartt Beanie</AmazonLink>:</strong> The uniform of the modern man. Cheap, durable, stylish.</li>
-          <li><strong>20. <AmazonLink term="Leatherman Wave Plus">Leatherman Wave+</AmazonLink>:</strong> The ultimate multitool. It screams "I can fix things."</li>
-          <li><strong>21. <AmazonLink term="Anker MagGo Power Bank">Anker MagGo Power Bank</AmazonLink>:</strong> Snaps onto the back of an iPhone. A lifesaver.</li>
-          <li><strong>22. <AmazonLink term="Philips Norelco OneBlade">Philips OneBlade</AmazonLink>:</strong> The best grooming tool on the market. Zero irritation.</li>
-          <li><strong>23. <AmazonLink term="Sony WH-1000XM5">Sony WH-1000XM5 Headphones</AmazonLink>:</strong> The gold standard for noise cancellation.</li>
-        </ol>
-
-        <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8 border-b pb-2">🧸 Just Cute Stuff</h4>
-        <ul className="list-disc pl-6 mb-6 space-y-2">
-          <li><strong>24. <AmazonLink term="Tamagotchi Uni">Tamagotchi Uni</AmazonLink>:</strong> A massive nostalgia hit that connects to Wi-Fi.</li>
-          <li><strong>25. <AmazonLink term="Long Distance Touch Bracelets">Bond Touch Bracelets</AmazonLink>:</strong> When you touch yours, theirs lights up. Perfect for LDRs.</li>
-        </ul>
-        
         <div className="bg-rose-50 p-6 rounded-xl border-l-4 border-rose-500 mt-8">
-          <strong>Stevie Z's Pro Tip:</strong> Don't just hand over the box. The "unboxing" is part of the gift. Add a handwritten note or a specific "Why I bought this for you" explanation to increase the perceived value by 100%.
+          <strong>Stevie Z's Pro Tip:</strong> Don't just hand over the box. The "unboxing" is part of the gift.
         </div>
       </>
     )
@@ -413,33 +370,17 @@ const BLOG_ARTICLES = [
     content: (
       <>
         <h3 className="text-2xl font-bold text-slate-800 mb-4">The Anxiety of the White Box</h3>
-        <p className="mb-6">Why is gifting so stressful? Psychologists call it "The Asymmetry of Information." You know what you <em>want</em> to say, but you have to translate that complex emotion into a physical object. If the object misses the mark, we fear the recipient will think we don't actually <em>know</em> them.</p>
-        <p className="mb-6">The secret to mastering this anxiety isn't spending more money. It's using the <strong>"Thoughtfulness Equation."</strong><br/><em>Thoughtfulness = (Observation + Effort) / Cost</em></p>
-
+        <p className="mb-6">Why is gifting so stressful? Psychologists call it "The Asymmetry of Information."</p>
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">1. The "Daily Driver Upgrade"</h4>
         <p className="mb-4">This is the single most effective strategy for difficult people. Look at what they use <em>every single day</em>, and buy them the "Rolls Royce" version of it.</p>
         <ul className="list-disc pl-6 mb-6 space-y-2">
-          <li><strong>The Mug:</strong> They drink coffee every morning from a chipped, free corporate mug. Buy them an <AmazonLink term="Ember Smart Mug">Ember Smart Mug</AmazonLink> that keeps coffee at exactly 135°F. You just upgraded 20 minutes of their every single morning.</li>
-          <li><strong>The Socks:</strong> They wear cheap cotton socks. Buy them <AmazonLink term="Darn Tough Merino Wool Socks">Darn Tough Vermont Merino Wool socks</AmazonLink> ($25/pair). They will never go back.</li>
-          <li><strong>The Pen:</strong> They use a disposable Bic. Buy them a heavy <AmazonLink term="Machine Turned Brass Pen">brass machine-turned pen</AmazonLink>. It adds weight and significance to every word they write.</li>
+          <li><strong>The Mug:</strong> <AmazonLink term="Ember Smart Mug">Ember Smart Mug</AmazonLink>.</li>
         </ul>
-        
         {/* --- CLUE INJECTION --- */}
         <div className="my-6 p-4 bg-slate-100 border border-slate-300 rounded-lg text-sm font-mono text-slate-600">
           <p><strong>🕵️‍♂️ HUNT CLUE #2:</strong> If you are looking for the Golden Lamp, you need the second key. The second digit of the code is the <strong>Item Weight</strong> (in ounces) of the Ember Mug 2 listed on Amazon. <AmazonLink term="Ember Smart Mug 2">Click here to find it.</AmazonLink></p>
         </div>
         {/* ---------------------- */}
-
-        <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">2. Solving the "Unspoken Complaint"</h4>
-        <p className="mb-4">People constantly broadcast their problems. You just have to tune your frequency to hear them.</p>
-        <p className="mb-4">
-          <em>"My phone is always dying by 2 PM."</em> &rarr; <strong>Gift:</strong> A <AmazonLink term="MagSafe Battery Pack">MagSafe battery pack</AmazonLink>.<br/>
-          <em>"It's so cold in this office."</em> &rarr; <strong>Gift:</strong> A <AmazonLink term="Heated Desk Pad">heated desk pad</AmazonLink>.<br/>
-          <em>"I can never find my keys."</em> &rarr; <strong>Gift:</strong> An <AmazonLink term="Apple AirTag">AirTag</AmazonLink>.
-        </p>
-
-        <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">3. The Death of the Gift Card</h4>
-        <p className="mb-4">We call this the "Lazy Tax." It says "I have $50, but I don't have the time to think about you." If you must give cash, wrap it in a puzzle box.</p>
       </>
     )
   },
@@ -448,25 +389,13 @@ const BLOG_ARTICLES = [
     icon: TrendingUp, 
     color: 'text-pink-600 bg-pink-100',
     title: "The $50 Rule: How to Fake Wealth",
-    // NO VIDEO
+    videoId: "lQj2y_1j_w4", 
     content: (
       <>
         <h3 className="text-2xl font-bold text-slate-800 mb-4">Perceived Value vs. Actual Cost</h3>
-        <p className="mb-6">There is a secret in the luxury retail world: <strong>Weight = Value.</strong> Humans are biologically wired to associate heaviness with quality. Cheap things are plastic and light; expensive things are glass, metal, stone, and wood.</p>
-        
+        <p className="mb-6">There is a secret in the luxury retail world: <strong>Weight = Value.</strong></p>
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">1. The "Top Shelf" Grocery Hack</h4>
-        <p className="mb-4">If you buy a $40 bottle of premium, <AmazonLink term="Brightland Olive Oil">cold-pressed olive oil</AmazonLink>, it feels like a royal gift. The recipient would never buy it for themselves.</p>
-        <p className="mb-6"><strong>Examples:</strong> <AmazonLink term="Manuka Honey">Manuka Honey</AmazonLink>, <AmazonLink term="Truffle Salt">Truffle Salt</AmazonLink>.</p>
-
-        <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">2. The "Kit" Strategy (Bundling)</h4>
-        <p className="mb-4">A single $30 item looks lonely. But three $10 items packaged together look like a "Curated Experience."</p>
-        <ul className="list-disc pl-6 mb-6 space-y-2">
-          <li><strong>The Movie Night Kit:</strong> A <AmazonLink term="Reusable Popcorn Tub">reusable popcorn tub</AmazonLink>, a jar of <AmazonLink term="Amish Country Popcorn Kernels">gourmet kernels</AmazonLink>, and <AmazonLink term="Movie Trivia">Movie Trivia cards</AmazonLink>.</li>
-          <li><strong>The Spa Night Kit:</strong> A high-end <AmazonLink term="Da Bomb Bath Bomb">bath bomb</AmazonLink>, a specific face mask, and a small candle. Pack it in a wooden crate.</li>
-        </ul>
-
-        <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">3. Material Science</h4>
-        <p className="mb-4">Avoid plastic. The <AmazonLink term="Crystal Whiskey Decanter">Crystal Decanter Cheat Code</AmazonLink> allows you to make a $25 bottle of whiskey look like a $200 gift.</p>
+        <p className="mb-4">If you buy a $40 bottle of premium, <AmazonLink term="Brightland Olive Oil">cold-pressed olive oil</AmazonLink>, it feels like a royal gift.</p>
       </>
     )
   }
@@ -479,7 +408,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [showSecret, setShowSecret] = useState(false); 
-  const [showGame, setShowGame] = useState(false); 
+  const [showGame, setShowGame] = useState(false); // Game State
   const [giftData, setGiftData] = useState([]);
   const [showPrivacy, setShowPrivacy] = useState(false);
 
@@ -694,3 +623,12 @@ export default function Home() {
     </main>
   );
 }
+```
+
+### **Deployment Order**
+
+1.  **Terminal:**
+    ```bash
+    git add .
+    git commit -m "Update Game with Gift Rush Art (JPG)"
+    git push
