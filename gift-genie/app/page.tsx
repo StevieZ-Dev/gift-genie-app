@@ -17,7 +17,8 @@ import {
   Play,
   Trophy,
   Gamepad2,
-  X
+  X,
+  Mail
 } from 'lucide-react';
 
 // --- HELPER FOR AFFILIATE LINKS ---
@@ -31,6 +32,30 @@ const AmazonLink = ({ term, children }: { term: string, children: React.ReactNod
     {children} <ArrowUpRight size={12} />
   </a>
 );
+
+// --- COMPONENT: GAME AD UNIT (AdSense) ---
+const GameAd = () => {
+  useEffect(() => {
+    try {
+      // @ts-ignore
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (err) {
+      console.error("AdSense Error", err);
+    }
+  }, []);
+
+  return (
+    <div className="my-6 flex justify-center bg-slate-800 rounded-lg overflow-hidden border border-slate-700">
+      {/* INSTRUCTION: Replace "YOUR_AD_SLOT_ID_HERE" with your actual Google AdSense Unit ID */}
+      <ins
+        className="adsbygoogle"
+        style={{ display: 'inline-block', width: '300px', height: '250px' }}
+        data-ad-client="ca-pub-6068418321673019"
+        data-ad-slot="YOUR_AD_SLOT_ID_HERE" 
+      ></ins>
+    </div>
+  );
+};
 
 // --- COMPONENT: BULLETPROOF VIDEO PLAYER ---
 const YouTubeFacade = ({ videoId, title }: { videoId: string, title: string }) => {
@@ -79,10 +104,36 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [gameState, setGameState] = useState<'START' | 'PLAYING' | 'GAMEOVER'>('START');
   const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  // Game Logic
+  // Load High Score from Local Storage
+  useEffect(() => {
+    const savedScore = localStorage.getItem('genie_highscore');
+    if (savedScore) {
+      setHighScore(parseInt(savedScore));
+    }
+  }, []);
+
+  // Update High Score
+  useEffect(() => {
+    if (gameState === 'GAMEOVER') {
+      if (score > highScore) {
+        setHighScore(score);
+        localStorage.setItem('genie_highscore', score.toString());
+      }
+    }
+  }, [gameState, score, highScore]);
+
+  // Handle Email Submission
+  const handleSubmit = () => {
+    if (!email.includes('@')) return; 
+    console.log(`Lead Captured: ${email} | Score: ${score}`);
+    setSubmitted(true);
+  };
+
+  // Game Loop Logic
   useEffect(() => {
     if (gameState !== 'PLAYING') return;
     
@@ -94,13 +145,11 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
     let animationFrameId: number;
     let frameCount = 0;
     
-    // Genie Physics
     let genieY = 150;
     let velocity = 0;
     const gravity = 0.5;
     const jumpStrength = -8;
 
-    // Obstacles & Gifts
     let obstacles: { x: number, y: number, type: 'cloud' | 'gift' }[] = [];
     const speed = 3;
 
@@ -115,18 +164,12 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Genie (Player) 🧞‍♂️
+      // Genie (Player)
       velocity += gravity;
       genieY += velocity;
       
-      // Floor/Ceiling collision
-      if (genieY > canvas.height - 40) {
-        setGameState('GAMEOVER');
-      }
-      if (genieY < 0) {
-        genieY = 0;
-        velocity = 0;
-      }
+      if (genieY > canvas.height - 40) setGameState('GAMEOVER');
+      if (genieY < 0) { genieY = 0; velocity = 0; }
 
       ctx.font = '40px Arial';
       ctx.fillText('🧞‍♂️', 50, genieY);
@@ -145,30 +188,17 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
 
         if (obs.type === 'cloud') {
           ctx.fillText('⛈️', obs.x, obs.y);
-          // Collision logic (Cloud)
-          if (
-            50 < obs.x + 30 &&
-            50 + 30 > obs.x &&
-            genieY < obs.y + 30 &&
-            genieY + 30 > obs.y
-          ) {
+          if (50 < obs.x + 30 && 50 + 30 > obs.x && genieY < obs.y + 30 && genieY + 30 > obs.y) {
             setGameState('GAMEOVER');
           }
         } else {
           ctx.fillText('🎁', obs.x, obs.y);
-          // Collision logic (Gift)
-          if (
-            50 < obs.x + 30 &&
-            50 + 30 > obs.x &&
-            genieY < obs.y + 30 &&
-            genieY + 30 > obs.y
-          ) {
+          if (50 < obs.x + 30 && 50 + 30 > obs.x && genieY < obs.y + 30 && genieY + 30 > obs.y) {
             setScore(s => s + 10);
-            obstacles.splice(i, 1); // Remove gift
+            obstacles.splice(i, 1);
             continue; 
           }
         }
-
         if (obs.x < -50) obstacles.splice(i, 1);
       }
 
@@ -185,19 +215,22 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
     loop();
 
     const handleJump = () => { velocity = jumpStrength; };
+    const handleTouch = (e: TouchEvent) => { e.preventDefault(); handleJump(); };
+
     window.addEventListener('mousedown', handleJump);
+    window.addEventListener('touchstart', handleTouch, { passive: false });
     window.addEventListener('keydown', (e) => { if(e.code === 'Space') handleJump() });
 
     return () => {
       window.cancelAnimationFrame(animationFrameId);
       window.removeEventListener('mousedown', handleJump);
-      // Clean up listeners
+      window.removeEventListener('touchstart', handleTouch);
     };
   }, [gameState, score]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in zoom-in-95 duration-300">
-      <div className="bg-slate-900 border-2 border-amber-400 rounded-2xl shadow-2xl w-full max-w-md relative overflow-hidden flex flex-col items-center">
+      <div className="bg-slate-900 border-2 border-amber-400 rounded-2xl shadow-2xl w-full max-w-md relative overflow-hidden flex flex-col items-center max-h-[90vh] overflow-y-auto">
         
         <button onClick={onClose} className="absolute top-4 right-4 text-white z-10 bg-black/50 rounded-full p-1 hover:bg-black/70">
           <X size={20} />
@@ -205,15 +238,12 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
 
         {gameState === 'START' && (
           <div className="w-full relative">
-            {/* HERO IMAGE (JPG) */}
             <div className="w-full h-64 relative bg-slate-800">
                <img 
                  src="/genie-rush.jpg" 
                  alt="Genie's Gift Rush" 
                  className="w-full h-full object-cover"
-                 onError={(e) => {
-                    (e.target as HTMLImageElement).style.display = 'none'; 
-                 }}
+                 onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                />
                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
             </div>
@@ -222,6 +252,11 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
               <h2 className="text-3xl font-extrabold text-amber-400 drop-shadow-md mb-2">Genie's Gift Rush</h2>
               <p className="text-slate-300 mb-8 text-sm">Collect Gifts 🎁. Avoid Storms ⛈️.</p>
               
+              <div className="bg-slate-800/50 p-4 rounded-xl mb-6 border border-slate-700">
+                <p className="text-amber-400 text-xs font-bold uppercase tracking-wider mb-2">Current High Score</p>
+                <p className="text-2xl font-bold text-white">{highScore}</p>
+              </div>
+
               <button 
                 onClick={() => { setScore(0); setGameState('PLAYING'); }}
                 className="w-full py-4 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white font-bold rounded-xl transition-all text-xl shadow-lg shadow-amber-500/20 uppercase tracking-widest transform hover:scale-105 active:scale-95"
@@ -239,17 +274,39 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
         )}
 
         {gameState === 'GAMEOVER' && (
-          <div className="text-center py-10 px-6 w-full">
-            <div className="mb-8">
+          <div className="text-center py-8 px-6 w-full">
+            <div className="mb-6">
               <Trophy size={64} className="text-amber-400 mx-auto mb-4 animate-bounce" />
               <h3 className="text-4xl font-black text-white mb-1">{score}</h3>
-              <p className="text-amber-400 font-bold uppercase tracking-widest text-xs">New High Score</p>
+              {score >= highScore && score > 0 && <p className="text-green-400 font-bold uppercase tracking-widest text-xs">New Personal Best!</p>}
+            </div>
+
+            {/* LEADERBOARD SIMULATION */}
+            <div className="bg-slate-800 p-4 rounded-xl border border-slate-700 mb-6 text-left">
+              <h4 className="text-slate-400 text-xs font-bold uppercase mb-3 flex items-center gap-2"><Trophy size={12}/> Leaderboard</h4>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between text-amber-400 font-bold">
+                  <span>1. GenieMaster</span>
+                  <span>2,450</span>
+                </div>
+                <div className="flex justify-between text-slate-300">
+                  <span>2. GiftHunter99</span>
+                  <span>1,800</span>
+                </div>
+                <div className="flex justify-between text-slate-300">
+                  <span>3. Sarah_Xo</span>
+                  <span>1,240</span>
+                </div>
+                <div className="flex justify-between text-white border-t border-slate-600 pt-2 mt-2">
+                  <span>You</span>
+                  <span>{score}</span>
+                </div>
+              </div>
             </div>
 
             {!submitted ? (
               <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 mb-6">
-                <p className="text-white font-bold mb-2">Save Your Spot?</p>
-                <p className="text-xs text-slate-400 mb-4">Enter your email to join the leaderboard.</p>
+                <p className="text-white font-bold mb-2">Join the Leaderboard?</p>
                 <input 
                   type="email" 
                   placeholder="Enter your email" 
@@ -258,7 +315,7 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
                   className="w-full p-3 rounded-lg bg-slate-900 border border-slate-600 text-white mb-3 focus:border-amber-500 focus:outline-none"
                 />
                 <button 
-                  onClick={() => setSubmitted(true)}
+                  onClick={handleSubmit}
                   className="w-full py-3 bg-green-600 hover:bg-green-500 text-white font-bold rounded-lg transition-colors"
                 >
                   Submit Score
@@ -266,11 +323,14 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
               </div>
             ) : (
               <div className="bg-green-900/30 border border-green-500/50 p-4 rounded-xl mb-6 text-green-400 flex items-center justify-center gap-2">
-                <CheckCircle size={20} /> Score Saved!
+                <CheckCircle size={20} /> Saved! Watch your inbox.
               </div>
             )}
 
-            <div className="flex gap-3">
+            {/* GAME ADSENSE UNIT */}
+            <GameAd />
+
+            <div className="flex gap-3 mt-6">
                 <button 
                 onClick={() => { setScore(0); setGameState('PLAYING'); setSubmitted(false); }}
                 className="flex-1 py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg transition-colors"
@@ -283,12 +343,6 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
                 >
                 Quit
                 </button>
-            </div>
-            
-            {/* ADSENSE PLACEHOLDER (For Game Monetization) */}
-            <div className="mt-8 w-full h-20 bg-slate-800 flex flex-col items-center justify-center text-xs text-slate-600 rounded border border-dashed border-slate-700">
-              <span className="font-mono">[GAME OVER AD UNIT]</span>
-              <span className="text-[10px] opacity-50">Monetize this space</span>
             </div>
           </div>
         )}
@@ -307,7 +361,6 @@ const SecretVaultModal = ({ onClose }: { onClose: () => void }) => {
           <Trophy size={40} className="text-amber-500" />
         </div>
         <h2 className="text-3xl font-bold text-white mb-2 tracking-tight">VAULT UNLOCKED</h2>
-        <p className="text-amber-400 font-mono text-sm mb-6">ACCESS GRANTED: LEVEL 3</p>
         <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 mb-8 text-left">
           <p className="text-slate-300 text-sm leading-relaxed mb-4">
             Congratulations, Hunter. You found the Golden Lamp.
@@ -328,14 +381,13 @@ const SecretVaultModal = ({ onClose }: { onClose: () => void }) => {
   );
 };
 
-// --- LONG-FORM BLOG CONTENT ---
+// --- LONG-FORM BLOG CONTENT (FULL TEXT RESTORED) ---
 const BLOG_ARTICLES = [
   {
     id: 'valentines-top-25',
     icon: Heart,
     color: 'text-rose-600 bg-rose-100',
     title: "The Ultimate 25 Trending Valentine's Day Gifts (Viral & Aesthetic)",
-    // VIDEO: STEVIE Z - TOP 25 VIDEO (Official)
     videoId: "T62FXUVzRFI", 
     content: (
       <>
@@ -419,7 +471,6 @@ const BLOG_ARTICLES = [
     icon: Gift,
     color: 'text-purple-600 bg-purple-100',
     title: "The Psychology of Gifting: How to Read Minds",
-    // VIDEO: STEVIE Z - PSYCHOLOGY OF GIFTING (SHORTS)
     videoId: "bsIAi2N8Tao", 
     content: (
       <>
@@ -571,7 +622,11 @@ export default function Home() {
     e.preventDefault();
     if (!query.trim()) return;
 
-    // --- SECRET TRIGGERS ---
+    // Reset States to clear previous searches
+    setShowSecret(false);
+    setShowGame(false);
+    setShowResults(false);
+
     const lowerQ = query.trim().toLowerCase();
     
     if (lowerQ === 'golden lamp') {
@@ -583,10 +638,8 @@ export default function Home() {
       setShowGame(true);
       return;
     }
-    // -----------------------
 
     setIsLoading(true);
-    setShowResults(false);
 
     setTimeout(() => {
         const mockResults = generateMockGifts(query);
@@ -596,6 +649,8 @@ export default function Home() {
         }));
         // @ts-ignore
         setGiftData(processedGifts);
+        setIsLoading(false);
+        setShowResults(true);
     }, 500); 
   };
 
