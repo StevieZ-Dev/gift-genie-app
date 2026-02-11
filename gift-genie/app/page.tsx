@@ -33,28 +33,19 @@ const AmazonLink = ({ term, children }: { term: string, children: React.ReactNod
   </a>
 );
 
-// --- COMPONENT: GAME AD UNIT (AdSense) ---
+// --- COMPONENT: GAME AD UNIT (AdSense - Safe Mode) ---
 const GameAd = () => {
-  useEffect(() => {
-    try {
-      // @ts-ignore
-      if (typeof window !== 'undefined' && (window as any).adsbygoogle) {
-        // @ts-ignore
-        (window.adsbygoogle = (window as any).adsbygoogle || []).push({});
-      }
-    } catch (err) {
-      // Silent fail
-    }
-  }, []);
-
   return (
     <div className="my-6 flex justify-center bg-slate-800 rounded-lg overflow-hidden border border-slate-700">
-      <ins
-        className="adsbygoogle"
-        style={{ display: 'inline-block', width: '300px', height: '250px' }}
-        data-ad-client="ca-pub-6068418321673019"
-        data-ad-slot="5336115674" 
-      ></ins>
+      {/* AdSense Unit */}
+      <div id="game-ad-container" className="w-[300px] h-[250px] bg-slate-900 flex items-center justify-center text-slate-600 text-xs">
+         <ins
+          className="adsbygoogle"
+          style={{ display: 'inline-block', width: '300px', height: '250px' }}
+          data-ad-client="ca-pub-6068418321673019"
+          data-ad-slot="5336115674" 
+        ></ins>
+      </div>
     </div>
   );
 };
@@ -112,6 +103,12 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
+    // Initialize AdSense inside Modal
+    try {
+      // @ts-ignore
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) {}
+    
     if (typeof window !== 'undefined') {
       const savedScore = localStorage.getItem('genie_highscore');
       if (savedScore) setHighScore(parseInt(savedScore));
@@ -266,7 +263,7 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
   );
 };
 
-// --- SECRET VAULT MODAL (Audio Math Riddle) ---
+// --- SECRET VAULT MODAL ---
 const SecretVaultModal = ({ onClose }: { onClose: () => void }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in zoom-in-95 duration-300" onClick={onClose}>
@@ -289,7 +286,7 @@ const SecretVaultModal = ({ onClose }: { onClose: () => void }) => {
   );
 };
 
-// --- GIFT TRIO (SAFE MODE - NO MOTION LIB) ---
+// --- GIFT TRIO (SAFE MODE) ---
 const GiftTrio = ({ data }: { data: any[] }) => {
   if (!data || !Array.isArray(data) || data.length === 0) return null;
 
@@ -430,17 +427,17 @@ const BLOG_ARTICLES = [
         <h3 className="text-2xl font-bold text-slate-800 mb-4">Perceived Value vs. Actual Cost</h3>
         <p className="mb-6">There is a secret in the luxury retail world: <strong>Weight = Value.</strong> Humans are biologically wired to associate heaviness with quality. Cheap things are plastic and light; expensive things are glass, metal, stone, and wood.</p>
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">1. The "Top Shelf" Grocery Hack</h4>
-        <p className="mb-4">If you buy a $40 bottle of premium, <AmazonLink term="Brightland Olive Oil">cold-pressed olive oil</AmazonLink> in a beautiful ceramic bottle, it feels like a royal gift. The recipient would never buy it for themselves because it feels "too extravagant." That is the sweet spot.</p>
+        <p className="mb-4">If you buy a $40 bottle of premium, <AmazonLink term="Brightland Olive Oil">cold-pressed olive oil</AmazonLink>, it feels like a royal gift. The recipient would never buy it for themselves because it feels "too extravagant." That is the sweet spot.</p>
         <p className="mb-6"><strong>Examples:</strong> <AmazonLink term="Manuka Honey">Manuka Honey</AmazonLink>, <AmazonLink term="Truffle Salt">Truffle Salt</AmazonLink>, Single-Origin Coffee Beans, imported French Butter cookies in a metal tin.</p>
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">2. The "Kit" Strategy (Bundling)</h4>
         <p className="mb-4">A single $30 item looks lonely. But three $10 items packaged together look like a "Curated Experience." This is how you beat the system.</p>
         <ul className="list-disc pl-6 mb-6 space-y-2">
-          <li><strong>The Movie Night Kit:</strong> A <AmazonLink term="Reusable Popcorn Tub">reusable popcorn tub</AmazonLink> ($8), a jar of <AmazonLink term="Amish Country Popcorn Kernels">gourmet kernels</AmazonLink> ($6), specialized popcorn seasoning ($5), and a "Movie Trivia" card deck ($10). Total cost: $29. Perceived value: $60.</li>
-          <li><strong>The Spa Night Kit:</strong> Do not buy the pre-made kits at Walmart (they look cheap). Build your own. A real eucalyptus branch ($5), a high-end <AmazonLink term="Da Bomb Bath Bomb">bath bomb</AmazonLink> ($8), a specific face mask ($5), and a small candle ($12). Pack it in a wooden crate or a nice basket.</li>
+          <li><strong>The Movie Night Kit:</strong> A <AmazonLink term="Reusable Popcorn Tub">reusable popcorn tub</AmazonLink>, <AmazonLink term="Amish Country Popcorn Kernels">gourmet kernels</AmazonLink>, and a "Movie Trivia" card deck.</li>
+          <li><strong>The Spa Night Kit:</strong> A real eucalyptus branch, a high-end <AmazonLink term="Da Bomb Bath Bomb">bath bomb</AmazonLink>, a specific face mask, and a small candle.</li>
         </ul>
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">3. Material Science: Glass, Wood, Metal</h4>
         <p className="mb-4">Avoid plastic at all costs. Plastic signals "disposable."</p>
-        <div className="bg-pink-50 p-6 rounded-xl border-l-4 border-pink-500 mb-6"><strong>The "Decanter" Cheat Code:</strong> You can buy a heavy, <AmazonLink term="Crystal Whiskey Decanter">crystal-style glass decanter</AmazonLink> on Amazon for $25. It looks like a $200 Waterford crystal piece. Pair it with a budget bottle of whiskey, and the heavy glass elevates the entire gift. The weight implies luxury.</div>
+        <div className="bg-pink-50 p-6 rounded-xl border-l-4 border-pink-500 mb-6"><strong>The "Decanter" Cheat Code:</strong> <AmazonLink term="Crystal Whiskey Decanter">Crystal-style glass decanter</AmazonLink> on Amazon for $25. It looks like a $200 piece.</div>
       </>
     )
   }
@@ -454,6 +451,10 @@ export default function Home() {
   const [showSecret, setShowSecret] = useState(false); 
   const [showGame, setShowGame] = useState(false); 
   const [giftData, setGiftData] = useState([]);
+  
+  // Mounted Check (CRITICAL FOR HYDRATION FIX)
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => { setIsMounted(true); }, []);
 
   // Mock data generator
   const generateMockGifts = (q: string) => [
@@ -466,7 +467,7 @@ export default function Home() {
     e.preventDefault();
     if (!query.trim()) return;
 
-    // Fix: Reset states immediately to prevent overlap
+    // Reset States
     setShowSecret(false);
     setShowGame(false);
     setShowResults(false);
@@ -494,6 +495,8 @@ export default function Home() {
         }
     }, 500); 
   };
+
+  if (!isMounted) return null; // Prevents Hydration Errors
 
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col font-sans text-slate-900 relative">
