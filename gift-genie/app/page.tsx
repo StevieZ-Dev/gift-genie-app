@@ -33,18 +33,71 @@ const AmazonLink = ({ term, children }: { term: string, children: React.ReactNod
   </a>
 );
 
-// --- COMPONENT: GAME AD UNIT (AdSense - Safe Mode) ---
+// --- COMPONENT: GAME AD UNIT (AdSense) ---
 const GameAd = () => {
+  useEffect(() => {
+    try {
+      // @ts-ignore
+      if (typeof window !== 'undefined' && (window as any).adsbygoogle) {
+        // @ts-ignore
+        (window.adsbygoogle = (window as any).adsbygoogle || []).push({});
+      }
+    } catch (err) {
+      // Silent fail
+    }
+  }, []);
+
   return (
     <div className="my-6 flex justify-center bg-slate-800 rounded-lg overflow-hidden border border-slate-700">
-      {/* AdSense Unit */}
-      <div id="game-ad-container" className="w-[300px] h-[250px] bg-slate-900 flex items-center justify-center text-slate-600 text-xs">
-         <ins
-          className="adsbygoogle"
-          style={{ display: 'inline-block', width: '300px', height: '250px' }}
-          data-ad-client="ca-pub-6068418321673019"
-          data-ad-slot="5336115674" 
-        ></ins>
+      <ins
+        className="adsbygoogle"
+        style={{ display: 'inline-block', width: '300px', height: '250px' }}
+        data-ad-client="ca-pub-6068418321673019"
+        data-ad-slot="5336115674" 
+      ></ins>
+    </div>
+  );
+};
+
+// --- COMPONENT: LOADING SCREEN (RESTORED) ---
+const LaborIllusionLoader = ({ onComplete }: { onComplete: () => void }) => {
+  const steps = [
+    { text: "Analyzing recipient profile...", icon: Search, color: "text-blue-500" },
+    { text: "Scanning viral TikTok trends...", icon: TrendingUp, color: "text-pink-500" },
+    { text: "Checking Amazon ratings...", icon: Star, color: "text-yellow-500" },
+    { text: "Finalizing perfect match...", icon: CheckCircle, color: "text-green-500" },
+  ];
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (index >= steps.length) {
+      const timer = setTimeout(onComplete, 500);
+      return () => clearTimeout(timer);
+    }
+    const timer = setTimeout(() => setIndex(i => i + 1), 800);
+    return () => clearTimeout(timer);
+  }, [index, onComplete, steps.length]);
+
+  const currentStep = steps[Math.min(index, steps.length - 1)];
+  const progress = Math.min(((index + 1) / steps.length) * 100, 100);
+
+  return (
+    <div className="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center p-4">
+      <div className="w-full max-w-md flex flex-col items-center">
+        <div className="w-20 h-20 mb-6 relative flex items-center justify-center bg-blue-50 rounded-full">
+          {index < steps.length ? (
+            <Loader2 className={`w-10 h-10 animate-spin ${currentStep.color}`} />
+          ) : (
+             <CheckCircle className="w-10 h-10 text-green-500" />
+          )}
+        </div>
+        <p className="text-lg font-medium text-gray-700 animate-pulse mb-4 text-center">{currentStep.text}</p>
+        <div className="w-64 h-2 bg-gray-100 rounded-full overflow-hidden">
+          <div 
+            className="h-full bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-300"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
       </div>
     </div>
   );
@@ -103,12 +156,6 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    // Initialize AdSense inside Modal
-    try {
-      // @ts-ignore
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {}
-    
     if (typeof window !== 'undefined') {
       const savedScore = localStorage.getItem('genie_highscore');
       if (savedScore) setHighScore(parseInt(savedScore));
@@ -263,7 +310,7 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
   );
 };
 
-// --- SECRET VAULT MODAL ---
+// --- SECRET VAULT MODAL (Audio Math Riddle) ---
 const SecretVaultModal = ({ onClose }: { onClose: () => void }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in zoom-in-95 duration-300" onClick={onClose}>
@@ -421,7 +468,6 @@ const BLOG_ARTICLES = [
     icon: TrendingUp, 
     color: 'text-pink-600 bg-pink-100',
     title: "The $50 Rule: How to Fake Wealth",
-    // NO VIDEO ID HERE
     content: (
       <>
         <h3 className="text-2xl font-bold text-slate-800 mb-4">Perceived Value vs. Actual Cost</h3>
@@ -430,7 +476,7 @@ const BLOG_ARTICLES = [
         <p className="mb-4">If you buy a $40 bottle of premium, <AmazonLink term="Brightland Olive Oil">cold-pressed olive oil</AmazonLink>, it feels like a royal gift. The recipient would never buy it for themselves because it feels "too extravagant." That is the sweet spot.</p>
         <p className="mb-6"><strong>Examples:</strong> <AmazonLink term="Manuka Honey">Manuka Honey</AmazonLink>, <AmazonLink term="Truffle Salt">Truffle Salt</AmazonLink>, Single-Origin Coffee Beans, imported French Butter cookies in a metal tin.</p>
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">2. The "Kit" Strategy (Bundling)</h4>
-        <p className="mb-4">A single $30 item looks lonely. But three $10 items packaged together look like a "Curated Experience." This is how you beat the system.</p>
+        <p className="mb-4">A single $30 item looks lonely. But three $10 items packaged together look like a "Curated Experience."</p>
         <ul className="list-disc pl-6 mb-6 space-y-2">
           <li><strong>The Movie Night Kit:</strong> A <AmazonLink term="Reusable Popcorn Tub">reusable popcorn tub</AmazonLink>, <AmazonLink term="Amish Country Popcorn Kernels">gourmet kernels</AmazonLink>, and a "Movie Trivia" card deck.</li>
           <li><strong>The Spa Night Kit:</strong> A real eucalyptus branch, a high-end <AmazonLink term="Da Bomb Bath Bomb">bath bomb</AmazonLink>, a specific face mask, and a small candle.</li>
