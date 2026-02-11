@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+// Removed framer-motion to prevent client-side crashes
 import { 
   Search, 
   TrendingUp, 
@@ -21,6 +22,37 @@ import {
   Music
 } from 'lucide-react';
 
+// --- MOCK DATA GENERATOR (Moved outside component for stability) ---
+const generateMockGifts = (q: string) => [
+  {
+    type: 'SAFE_BET',
+    title: `Premium ${q.split(' ').pop() || 'Gift'} Set`,
+    description: 'The highly-rated, reliable choice. 4.8 stars with over 2,000 reviews. Perfect for everyday use.',
+    price: '$49.99',
+    reason: 'It minimizes social risk and is a recognized brand they will actually use.',
+    imageUrl: 'https://placehold.co/600x400/e2e8f0/1e293b?text=Safe+Bet',
+    affiliateLink: '#',
+  },
+  {
+    type: 'LIFE_IMPROVER',
+    title: `Smart ${q.split(' ').pop() || 'Gadget'} Upgrade`,
+    description: 'Solves a daily annoyance. High utility and "cool factor." Great for tech lovers.',
+    price: '$89.00',
+    reason: 'Appeals to their practical side while feeling like a luxury treat.',
+    imageUrl: 'https://placehold.co/600x400/f3e8ff/581c87?text=Life+Improver',
+    affiliateLink: '#',
+  },
+  {
+    type: 'VIRAL_FLEX',
+    title: `Trending TikTok Find`,
+    description: 'The item everyone is talking about right now. High novelty and great for unboxing.',
+    price: '$29.99',
+    reason: 'Triggers a dopamine hit. Great for showing off on social media.',
+    imageUrl: 'https://placehold.co/600x400/fce7f3/db2777?text=Viral+Flex',
+    affiliateLink: '#',
+  },
+];
+
 // --- HELPER FOR AFFILIATE LINKS ---
 const AmazonLink = ({ term, children }: { term: string, children: React.ReactNode }) => (
   <a 
@@ -40,7 +72,7 @@ const GameAd = () => {
       // @ts-ignore
       if (typeof window !== 'undefined' && (window as any).adsbygoogle) {
         // @ts-ignore
-        (window as any).adsbygoogle.push({});
+        (window.adsbygoogle = (window as any).adsbygoogle || []).push({});
       }
     } catch (err) {
       // Silent fail
@@ -248,6 +280,7 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between text-amber-400 font-bold"><span>1. GenieMaster</span><span>2,450</span></div>
                 <div className="flex justify-between text-slate-300"><span>2. GiftHunter99</span><span>1,800</span></div>
+                <div className="flex justify-between text-slate-300"><span>3. Sarah_Xo</span><span>1,240</span></div>
                 <div className="flex justify-between text-white border-t border-slate-600 pt-2 mt-2 bg-slate-700/50 p-2 rounded"><span>YOU</span><span>{Math.max(score, highScore)}</span></div>
               </div>
             </div>
@@ -265,7 +298,7 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
   );
 };
 
-// --- SECRET VAULT MODAL ---
+// --- SECRET VAULT MODAL (Audio Math Riddle) ---
 const SecretVaultModal = ({ onClose }: { onClose: () => void }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in zoom-in-95 duration-300" onClick={onClose}>
@@ -288,7 +321,7 @@ const SecretVaultModal = ({ onClose }: { onClose: () => void }) => {
   );
 };
 
-// --- GIFT TRIO (STABILIZED) ---
+// --- GIFT TRIO (REMOVED FRAMER MOTION FOR STABILITY) ---
 const GiftTrio = ({ data }: { data: any[] }) => {
   if (!data || !Array.isArray(data) || data.length === 0) return null;
 
@@ -299,15 +332,16 @@ const GiftTrio = ({ data }: { data: any[] }) => {
   };
 
   return (
-    <section className="py-12 bg-gray-50">
+    <section className="py-12 bg-gray-50 animate-in fade-in slide-in-from-bottom-8 duration-700">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-10"><h2 className="text-3xl font-bold text-gray-900">The "Perfect Gift" Analysis</h2><p className="text-gray-600 mt-2">Based on your search, we found the top contenders.</p></div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {data.map((gift, index) => {
             const config = CardConfig[gift.type] || CardConfig['SAFE_BET'];
             const Icon = config.icon;
+            // Using standard DIV instead of motion.div to prevent hydration crashes
             return (
-              <div key={index} className={`relative bg-white rounded-2xl overflow-hidden shadow-lg border-2 ${config.borderStyle} flex flex-col`}>
+              <div key={index} className={`relative bg-white rounded-2xl overflow-hidden shadow-lg border-2 ${config.borderStyle} flex flex-col transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl`}>
                 <div className={`px-4 py-2 flex items-center justify-center gap-2 font-semibold text-sm ${config.headerStyle} border-b`}><Icon size={16} />{config.badge}</div>
                 <div className="relative h-48 bg-gray-200 overflow-hidden group">
                   <img src={gift.imageUrl} alt={gift.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -395,7 +429,9 @@ const BLOG_ARTICLES = [
     content: (
       <>
         <h3 className="text-2xl font-bold text-slate-800 mb-4">The Anxiety of the White Box</h3>
-        <p className="mb-6">Why is gifting so stressful? Psychologists call it "The Asymmetry of Information."</p>
+        <p className="mb-6">Why is gifting so stressful? Psychologists call it "The Asymmetry of Information." You know what you <em>want</em> to say ("I love you," "I appreciate you," "I know you"), but you have to translate that complex emotion into a physical object. If the object misses the mark, we fear the recipient will think we don't actually <em>know</em> them.</p>
+        <p className="mb-6">The secret to mastering this anxiety isn't spending more money. It's using the <strong>"Thoughtfulness Equation."</strong><br/><em>Thoughtfulness = (Observation + Effort) / Cost</em></p>
+        
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">1. The "Daily Driver Upgrade"</h4>
         <p className="mb-4">This is the single most effective strategy for difficult people.</p>
         <ul className="list-disc pl-6 mb-6 space-y-2">
@@ -425,7 +461,7 @@ const BLOG_ARTICLES = [
         <h3 className="text-2xl font-bold text-slate-800 mb-4">Perceived Value vs. Actual Cost</h3>
         <p className="mb-6">There is a secret in the luxury retail world: <strong>Weight = Value.</strong></p>
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">1. The "Top Shelf" Grocery Hack</h4>
-        <p className="mb-4">If you buy a $40 bottle of premium, <AmazonLink term="Brightland Olive Oil">cold-pressed olive oil</AmazonLink>, it feels like a royal gift.</p>
+        <p className="mb-4">If you buy a $40 bottle of premium, <AmazonLink term="Brightland Olive Oil">cold-pressed olive oil</AmazonLink>, it feels like a royal gift. The recipient would never buy it for themselves because it feels "too extravagant." That is the sweet spot.</p>
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">2. The "Kit" Strategy (Bundling)</h4>
         <p className="mb-4">A single $30 item looks lonely. But three $10 items packaged together look like a "Curated Experience."</p>
         <ul className="list-disc pl-6 mb-6 space-y-2">
@@ -460,7 +496,7 @@ export default function Home() {
     e.preventDefault();
     if (!query.trim()) return;
 
-    // Fix: Reset states immediately to prevent overlap
+    // Reset States immediately
     setShowSecret(false);
     setShowGame(false);
     setShowResults(false);
