@@ -18,7 +18,9 @@ import {
   Gamepad2,
   X,
   Mail,
-  Music
+  Music,
+  Filter,
+  Sparkles
 } from 'lucide-react';
 
 // --- HELPER FOR AFFILIATE LINKS ---
@@ -59,45 +61,27 @@ const GameAd = () => {
   );
 };
 
-// --- COMPONENT: LOADING SCREEN (RESTORED) ---
-const LaborIllusionLoader = ({ onComplete }: { onComplete: () => void }) => {
-  const steps = [
-    { text: "Analyzing recipient profile...", icon: Search, color: "text-blue-500" },
-    { text: "Scanning viral TikTok trends...", icon: TrendingUp, color: "text-pink-500" },
-    { text: "Checking Amazon ratings...", icon: Star, color: "text-yellow-500" },
-    { text: "Finalizing perfect match...", icon: CheckCircle, color: "text-green-500" },
-  ];
-  const [index, setIndex] = useState(0);
+// --- COMPONENT: MAGICAL LAMP LOADER ---
+const MagicLampLoader = ({ onComplete }: { onComplete: () => void }) => {
+  const [loadingText, setLoadingText] = useState("Rubbing the Lamp...");
+  const texts = ["Summoning the Genie...", "Consulting the Ancient Scrolls...", "Scanning the Stars...", "Granting Your 3 Wishes..."];
 
   useEffect(() => {
-    if (index >= steps.length) {
-      const timer = setTimeout(onComplete, 500);
-      return () => clearTimeout(timer);
-    }
-    const timer = setTimeout(() => setIndex(i => i + 1), 800);
-    return () => clearTimeout(timer);
-  }, [index, onComplete, steps.length]);
-
-  const currentStep = steps[Math.min(index, steps.length - 1)];
-  const progress = Math.min(((index + 1) / steps.length) * 100, 100);
+    let step = 0;
+    const interval = setInterval(() => { if (step < texts.length) { setLoadingText(texts[step]); step++; } }, 800);
+    const timer = setTimeout(onComplete, 3500); 
+    return () => { clearTimeout(timer); clearInterval(interval); };
+  }, [onComplete]);
 
   return (
-    <div className="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-md flex flex-col items-center">
-        <div className="w-20 h-20 mb-6 relative flex items-center justify-center bg-blue-50 rounded-full">
-          {index < steps.length ? (
-            <Loader2 className={`w-10 h-10 animate-spin ${currentStep.color}`} />
-          ) : (
-             <CheckCircle className="w-10 h-10 text-green-500" />
-          )}
-        </div>
-        <p className="text-lg font-medium text-gray-700 animate-pulse mb-4 text-center">{currentStep.text}</p>
-        <div className="w-64 h-2 bg-gray-100 rounded-full overflow-hidden">
-          <div 
-            className="h-full bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-300"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
+    <div className="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-50 flex flex-col items-center justify-center p-4">
+      <div className="relative">
+        <div className="text-8xl animate-bounce mb-4 filter drop-shadow-lg">🧞‍♂️</div>
+        <div className="absolute -top-4 -right-4 animate-ping text-yellow-400"><Sparkles size={32} /></div>
+      </div>
+      <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-yellow-500 mt-6 animate-pulse text-center">{loadingText}</h3>
+      <div className="w-64 h-2 bg-slate-800 rounded-full mt-6 overflow-hidden border border-slate-700">
+        <div className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-[width_3.5s_ease-out_forwards] w-full" />
       </div>
     </div>
   );
@@ -110,42 +94,21 @@ const YouTubeFacade = ({ videoId, title }: { videoId: string, title: string }) =
   if (isPlaying) {
     return (
       <div className="w-full aspect-video rounded-xl overflow-hidden mb-6 bg-black shadow-md">
-        <iframe 
-          width="100%" 
-          height="100%" 
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`} 
-          title={title}
-          frameBorder="0" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-          allowFullScreen
-        ></iframe>
+        <iframe width="100%" height="100%" src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`} title={title} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
     );
   }
 
   return (
-    <div 
-      onClick={() => setIsPlaying(true)}
-      className="w-full aspect-video rounded-xl overflow-hidden mb-6 bg-slate-900 shadow-md relative group cursor-pointer"
-    >
-      <img 
-        src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`} 
-        alt={title}
-        className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
-      />
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-          <Play size={32} className="text-white fill-white ml-1" />
-        </div>
-      </div>
-      <div className="absolute bottom-4 left-4 bg-black/70 px-3 py-1 rounded text-white text-xs font-bold">
-        Watch Review
-      </div>
+    <div onClick={() => setIsPlaying(true)} className="w-full aspect-video rounded-xl overflow-hidden mb-6 bg-slate-900 shadow-md relative group cursor-pointer">
+      <img src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`} alt={title} className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" />
+      <div className="absolute inset-0 flex items-center justify-center"><div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform"><Play size={32} className="text-white fill-white ml-1" /></div></div>
+      <div className="absolute bottom-4 left-4 bg-black/70 px-3 py-1 rounded text-white text-xs font-bold">Watch Review</div>
     </div>
   );
 };
 
-// --- COMPONENT: SECRET GAME ENGINE (Genie's Gift Rush) ---
+// --- COMPONENT: SECRET GAME ENGINE ---
 const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [gameState, setGameState] = useState<'START' | 'PLAYING' | 'GAMEOVER'>('START');
@@ -181,11 +144,7 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
         body: JSON.stringify({ email, score, source: 'GenieRush_Game' }),
       });
       if (response.ok) setSubmitted(true);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsSubmitting(false);
-    }
+    } catch (error) { console.error(error); } finally { setIsSubmitting(false); }
   };
 
   useEffect(() => {
@@ -194,7 +153,6 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-
     let animationFrameId: number;
     let frameCount = 0;
     let genieY = 150;
@@ -212,21 +170,17 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
       gradient.addColorStop(1, '#93c5fd');
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-
       velocity += gravity;
       genieY += velocity;
       if (genieY > canvas.height - 40) setGameState('GAMEOVER');
       if (genieY < 0) { genieY = 0; velocity = 0; }
-
       ctx.font = '40px Arial';
       ctx.fillText('🧞‍♂️', 50, genieY);
-
       if (frameCount % 100 === 0) {
         const type = Math.random() > 0.3 ? 'cloud' : 'gift';
         const y = Math.random() * (canvas.height - 100) + 50;
         obstacles.push({ x: canvas.width, y, type });
       }
-
       for (let i = obstacles.length - 1; i >= 0; i--) {
         let obs = obstacles[i];
         obs.x -= speed;
@@ -243,21 +197,17 @@ const GenieGameModal = ({ onClose }: { onClose: () => void }) => {
         }
         if (obs.x < -50) obstacles.splice(i, 1);
       }
-
       ctx.fillStyle = 'white';
       ctx.font = 'bold 24px sans-serif';
       ctx.fillText(`Score: ${score}`, 20, 40);
-
       if (gameState === 'PLAYING') animationFrameId = window.requestAnimationFrame(loop);
     };
     loop();
-
     const handleJump = () => { velocity = jumpStrength; };
     const handleTouch = (e: TouchEvent) => { e.preventDefault(); handleJump(); };
     window.addEventListener('mousedown', handleJump);
     window.addEventListener('touchstart', handleTouch, { passive: false });
     window.addEventListener('keydown', (e) => { if(e.code === 'Space') handleJump() });
-
     return () => {
       window.cancelAnimationFrame(animationFrameId);
       window.removeEventListener('mousedown', handleJump);
@@ -318,6 +268,7 @@ const SecretVaultModal = ({ onClose }: { onClose: () => void }) => {
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent opacity-50" />
         <div className="w-20 h-20 bg-amber-500/10 rounded-full flex items-center justify-center mx-auto mb-6 ring-1 ring-amber-500/50"><Trophy size={40} className="text-amber-500" /></div>
         <h2 className="text-3xl font-bold text-white mb-2 tracking-tight">THE GOLDEN LAMP</h2>
+        <p className="text-amber-400 font-mono text-xs uppercase tracking-[0.2em] mb-6">Level 99 Difficulty Active</p>
         <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 mb-8 text-left space-y-4">
           <p className="text-slate-300 text-sm leading-relaxed">Welcome, Hunter. Enter the monthly draw for the <strong>$100 Amazon Spree</strong>.</p>
           <div className="space-y-4 mt-4">
@@ -346,7 +297,13 @@ const GiftTrio = ({ data }: { data: any[] }) => {
   return (
     <section className="py-12 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-10"><h2 className="text-3xl font-bold text-gray-900">The "Perfect Gift" Analysis</h2><p className="text-gray-600 mt-2">Based on your search, we found the top contenders.</p></div>
+        <div className="text-center mb-10">
+          <div className="flex flex-col items-center">
+            <span className="text-4xl animate-bounce mb-2">🧞‍♂️✨</span>
+            <h2 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-yellow-600 mb-2">YOUR 3 WISHES GRANTED</h2>
+            <p className="text-slate-500 font-medium">The Genie has spoken.</p>
+          </div>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {data.map((gift, index) => {
             const config = CardConfig[gift.type] || CardConfig['SAFE_BET'];
@@ -455,7 +412,7 @@ const BLOG_ARTICLES = [
         </div>
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">2. Solving the "Unspoken Complaint"</h4>
         <p className="mb-4">People constantly broadcast their problems. Tune your frequency.</p>
-        <p className="mb-4"><em>"My phone is always dying by 2 PM."</em> &rarr; <strong>Gift:</strong> <AmazonLink term="MagSafe Battery Pack">MagSafe battery pack</AmazonLink>.<br/><em>"It's so cold in this office."</em> &rarr; <strong>Gift:</strong> <AmazonLink term="Heated Desk Pad">heated desk pad</AmazonLink>.<br/><em>"I can never find my keys."</em> &rarr; <strong>Gift:</strong> An <AmazonLink term="Apple AirTag">AirTag</AmazonLink> in a leather keychain.</p>
+        <p className="mb-4"><em>"My phone is always dying by 2 PM."</em> &rarr; <strong>Gift:</strong> <AmazonLink term="MagSafe Battery Pack">MagSafe battery pack</AmazonLink>.<br/><em>"It's so cold here."</em> &rarr; <strong>Gift:</strong> <AmazonLink term="Heated Desk Pad">heated desk pad</AmazonLink>.<br/><em>"I can never find my keys."</em> &rarr; <strong>Gift:</strong> An <AmazonLink term="Apple AirTag">AirTag</AmazonLink> in a leather keychain.</p>
         <p className="mb-6">When you solve a friction point in their life, the gift stops being an "object" and starts being a "solution." You are gifting them <strong>relief</strong>. That generates a much deeper emotional bond than a generic candle ever could.</p>
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">3. The Death of the Gift Card</h4>
         <div className="bg-purple-50 p-6 rounded-xl border-l-4 border-purple-500 mb-6"><strong>The "Lazy Tax":</strong> When you give a gift card, you are essentially saying, "I have $50, but I don't have the time or energy to think about you." It transfers the labor of shopping onto the recipient.</div>
@@ -468,6 +425,7 @@ const BLOG_ARTICLES = [
     icon: TrendingUp, 
     color: 'text-pink-600 bg-pink-100',
     title: "The $50 Rule: How to Fake Wealth",
+    // NO VIDEO ID HERE
     content: (
       <>
         <h3 className="text-2xl font-bold text-slate-800 mb-4">Perceived Value vs. Actual Cost</h3>
@@ -476,7 +434,7 @@ const BLOG_ARTICLES = [
         <p className="mb-4">If you buy a $40 bottle of premium, <AmazonLink term="Brightland Olive Oil">cold-pressed olive oil</AmazonLink>, it feels like a royal gift. The recipient would never buy it for themselves because it feels "too extravagant." That is the sweet spot.</p>
         <p className="mb-6"><strong>Examples:</strong> <AmazonLink term="Manuka Honey">Manuka Honey</AmazonLink>, <AmazonLink term="Truffle Salt">Truffle Salt</AmazonLink>, Single-Origin Coffee Beans, imported French Butter cookies in a metal tin.</p>
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">2. The "Kit" Strategy (Bundling)</h4>
-        <p className="mb-4">A single $30 item looks lonely. But three $10 items packaged together look like a "Curated Experience."</p>
+        <p className="mb-4">A single $30 item looks lonely. But three $10 items packaged together look like a "Curated Experience." This is how you beat the system.</p>
         <ul className="list-disc pl-6 mb-6 space-y-2">
           <li><strong>The Movie Night Kit:</strong> A <AmazonLink term="Reusable Popcorn Tub">reusable popcorn tub</AmazonLink>, <AmazonLink term="Amish Country Popcorn Kernels">gourmet kernels</AmazonLink>, and a "Movie Trivia" card deck.</li>
           <li><strong>The Spa Night Kit:</strong> A real eucalyptus branch, a high-end <AmazonLink term="Da Bomb Bath Bomb">bath bomb</AmazonLink>, a specific face mask, and a small candle.</li>
@@ -498,16 +456,43 @@ export default function Home() {
   const [showGame, setShowGame] = useState(false); 
   const [giftData, setGiftData] = useState([]);
   
-  // Mounted Check (CRITICAL FOR HYDRATION FIX)
+  // Mounted Check
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => { setIsMounted(true); }, []);
 
   // Mock data generator
-  const generateMockGifts = (q: string) => [
-    { type: 'SAFE_BET', title: `Premium ${q.split(' ').pop() || 'Gift'} Set`, description: 'The highly-rated, reliable choice. 4.8 stars with over 2,000 reviews.', price: '$49.99', imageUrl: 'https://placehold.co/600x400/e2e8f0/1e293b?text=Safe+Bet', affiliateLink: '#' },
-    { type: 'LIFE_IMPROVER', title: `Smart ${q.split(' ').pop() || 'Gadget'} Upgrade`, description: 'Solves a daily annoyance. High utility and "cool factor."', price: '$89.00', imageUrl: 'https://placehold.co/600x400/f3e8ff/581c87?text=Life+Improver', affiliateLink: '#' },
-    { type: 'VIRAL_FLEX', title: `Trending TikTok Find`, description: 'The item everyone is talking about right now. High novelty.', price: '$29.99', imageUrl: 'https://placehold.co/600x400/fce7f3/db2777?text=Viral+Flex', affiliateLink: '#' },
-  ];
+  // FOUNDER OVERRIDE: Inject Dream Journal for specific keywords
+  const generateMockGifts = (q: string) => {
+    const lowerQ = q.toLowerCase();
+    const isDreamTrigger = ['dream', 'journal', 'writing', 'spiritual', 'mindful', 'anxiety'].some(k => lowerQ.includes(k));
+    
+    return [
+      { 
+        type: 'SAFE_BET', 
+        title: `Premium ${q.split(' ').pop() || 'Gift'} Set`, 
+        description: 'The highly-rated, reliable choice. 4.8 stars with over 2,000 reviews.', 
+        price: '$49.99', 
+        imageUrl: 'https://placehold.co/600x400/e2e8f0/1e293b?text=Safe+Bet', 
+        affiliateLink: '#' 
+      },
+      { 
+        type: 'LIFE_IMPROVER', 
+        title: isDreamTrigger ? 'The Illosophy Dream Journal' : `Smart ${q.split(' ').pop() || 'Gadget'} Upgrade`, 
+        description: isDreamTrigger ? "Editor's Choice: The tool I use daily to unlock creativity and subconscious power." : 'Solves a daily annoyance. High utility and "cool factor."', 
+        price: isDreamTrigger ? '$15.99' : '$89.00', 
+        imageUrl: 'https://placehold.co/600x400/f3e8ff/581c87?text=Life+Improver', 
+        affiliateLink: isDreamTrigger ? 'https://a.co/d/052g9oH6?tag=giftgenie0c4-20' : '#' 
+      },
+      { 
+        type: 'VIRAL_FLEX', 
+        title: `Trending TikTok Find`, 
+        description: 'The item everyone is talking about right now. High novelty.', 
+        price: '$29.99', 
+        imageUrl: 'https://placehold.co/600x400/fce7f3/db2777?text=Viral+Flex', 
+        affiliateLink: '#' 
+      },
+    ];
+  };
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -529,7 +514,8 @@ export default function Home() {
             const mockResults = generateMockGifts(query);
             const processedGifts = mockResults.map((gift: any) => ({
                 ...gift,
-                affiliateLink: `https://www.amazon.com/s?k=${encodeURIComponent(gift.title)}&tag=giftgenie0c4-20`
+                // Only override link if it wasn't already set (like the Dream Journal)
+                affiliateLink: gift.affiliateLink !== '#' ? gift.affiliateLink : `https://www.amazon.com/s?k=${encodeURIComponent(gift.title)}&tag=giftgenie0c4-20`
             }));
             // @ts-ignore
             setGiftData(processedGifts);
@@ -539,10 +525,10 @@ export default function Home() {
             console.error("Search Error", error);
             setIsLoading(false);
         }
-    }, 500); 
+    }, 3500); 
   };
 
-  if (!isMounted) return null; // Prevents Hydration Errors
+  if (!isMounted) return null;
 
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col font-sans text-slate-900 relative">
@@ -559,6 +545,7 @@ export default function Home() {
               Gift<span className="text-blue-600">Genie</span>
             </h1>
           </div>
+          
           <div className="w-full max-w-2xl aspect-[2/1] relative rounded-3xl overflow-hidden shadow-2xl mb-8 border-4 border-white group">
             <img src="/hero.jpg" alt="AI Gift Finder" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end justify-center pb-6">
@@ -576,6 +563,14 @@ export default function Home() {
             <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Who are you shopping for?" className="relative w-full px-8 py-5 rounded-full text-lg border-2 border-white bg-white focus:border-blue-50 focus:outline-none shadow-xl text-slate-800 placeholder:text-slate-400" />
             <button type="submit" className="absolute right-3 top-3 p-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors shadow-md"><Search size={24} /></button>
           </form>
+
+          {/* NEW PRICE FILTER PILLS */}
+          <div className="flex gap-2 justify-center mb-10 overflow-x-auto px-4 w-full">
+            <button className="px-4 py-2 bg-white border border-slate-200 rounded-full text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-1 whitespace-nowrap"><Filter size={12}/> Under $25</button>
+            <button className="px-4 py-2 bg-white border border-slate-200 rounded-full text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-colors whitespace-nowrap">Under $50</button>
+            <button className="px-4 py-2 bg-white border border-slate-200 rounded-full text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-colors whitespace-nowrap">Under $100</button>
+            <button className="px-4 py-2 bg-white border border-slate-200 rounded-full text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-colors whitespace-nowrap">Luxury ✨</button>
+          </div>
 
           {/* VISIBLE BLOG FEED */}
           <div className="w-full max-w-4xl pb-20">
@@ -609,7 +604,7 @@ export default function Home() {
         </div>
       )}
 
-      {isLoading && <LaborIllusionLoader onComplete={() => { setIsLoading(false); setShowResults(true); }} />}
+      {isLoading && <MagicLampLoader onComplete={() => { setIsLoading(false); setShowResults(true); }} />}
       
       {showResults && (
         <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
