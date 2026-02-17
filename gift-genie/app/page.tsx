@@ -556,6 +556,7 @@ const SecretVaultModal = ({ onClose }: { onClose: () => void }) => {
           <Trophy size={40} className="text-amber-500" />
         </div>
         <h2 className="text-3xl font-bold text-white mb-2 tracking-tight">THE GOLDEN LAMP</h2>
+        <p className="text-amber-400 font-mono text-xs uppercase tracking-[0.2em] mb-6">Level 99 Difficulty Active</p>
         <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 mb-8 text-left space-y-4">
           <p className="text-slate-300 text-sm leading-relaxed">
             Welcome, Hunter. Enter the monthly draw for the <strong>$100 Amazon Spree</strong>.
@@ -635,12 +636,15 @@ const BLOG_ARTICLES = [
     id: 'valentines-top-25',
     icon: Heart,
     color: 'text-rose-600 bg-rose-100',
-    title: "The Ultimate 25 Trending Valentine's Day Gifts (Viral & Aesthetic)",
-    videoId: "T62FXUVzRFI", 
+    // CHANGED TO EVERGREEN TITLE
+    title: "The 25 Ultimate Trending Gifts Of 2026 (Viral & Aesthetic)",
+    videoId: "PRO4akSlTw8", 
     content: (
       <>
-        <h3 className="text-2xl font-bold text-slate-800 mb-4">Beyond Roses: The Viral Gift Guide</h3>
-        <p className="mb-6">Valentine's Day 2025 isn't about generic chocolates from the pharmacy. It's about "Aesthetic Love Languages." Thanks to TikTok trends like "Burnt Toast Theory" and the "Orange Peel Theory," acts of service and hyper-specific aesthetic gifts are winning. Below is the curated list of the top 25 most searched, wished-for, and viral gifts right now.</p>
+        <h3 className="text-2xl font-bold text-slate-800 mb-4">Beyond the Basic: The 2026 Viral Gift Guide</h3>
+        <p className="mb-6">
+          Gifting in 2026 isn't about generic department store finds. It's about "Aesthetic Utility" and "Hyper-Niche" interests. Thanks to viral TikTok trends and Pinterest "Cozy Core" boards, specific items have become social currency. Below is the curated list of the top 25 most searched, wished-for, and viral gifts taking over the internet right now.
+        </p>
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8 border-b pb-2">❤️ The "Forever Flowers" Trend</h4>
         <ul className="list-disc pl-6 mb-6 space-y-2">
           <li><strong>1. <AmazonLink term="Lego Flower Bouquet">Lego Flower Bouquet</AmazonLink>:</strong> The #1 viral couple's activity. Building it together is the date night.</li>
@@ -684,7 +688,9 @@ const BLOG_ARTICLES = [
           <li><strong>24. <AmazonLink term="Tamagotchi Uni">Tamagotchi Uni</AmazonLink>:</strong> A massive nostalgia hit that connects to Wi-Fi.</li>
           <li><strong>25. <AmazonLink term="Long Distance Touch Bracelets">Bond Touch Bracelets</AmazonLink>:</strong> When you touch yours, theirs lights up. Perfect for LDRs.</li>
         </ul>
-        <div className="bg-rose-50 p-6 rounded-xl border-l-4 border-rose-500 mt-8"><strong>Stevie Z's Pro Tip:</strong> Don't just hand over the box. The "unboxing" is part of the gift. Add a handwritten note or a specific "Why I bought this for you" explanation to increase the perceived value by 100%.</div>
+        <div className="bg-rose-50 p-6 rounded-xl border-l-4 border-rose-500 mt-8">
+          <strong>Stevie Z's Pro Tip:</strong> Don't just hand over the box. The "unboxing" is part of the gift. Add a handwritten note or a specific "Why I bought this for you" explanation to increase the perceived value by 100%.
+        </div>
       </>
     )
   },
@@ -697,26 +703,56 @@ const BLOG_ARTICLES = [
     content: (
       <>
         <h3 className="text-2xl font-bold text-slate-800 mb-4">The Anxiety of the White Box</h3>
-        <p className="mb-6">Why is gifting so stressful? Psychologists call it "The Asymmetry of Information." You know what you <em>want</em> to say ("I love you," "I appreciate you," "I know you"), but you have to translate that complex emotion into a physical object. If the object misses the mark, we fear the recipient will think we don't actually <em>know</em> them.</p>
-        <p className="mb-6">The secret to mastering this anxiety isn't spending more money. It's using the <strong>"Thoughtfulness Equation."</strong><br/><em>Thoughtfulness = (Observation + Effort) / Cost</em></p>
+        <p className="mb-6">
+          Why is gifting so stressful? Psychologists call it "The Asymmetry of Information." You know what you <em>want</em> to say ("I love you," "I appreciate you," "I know you"), but you have to translate that complex emotion into a physical object. If the object misses the mark, we fear the recipient will think we don't actually <em>know</em> them.
+        </p>
+        <p className="mb-6">
+          The secret to mastering this anxiety isn't spending more money. It's using the <strong>"Thoughtfulness Equation."</strong>
+          <br /><br />
+          <em>Thoughtfulness = (Observation + Effort) / Cost</em>
+        </p>
+
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">1. The "Daily Driver Upgrade"</h4>
-        <p className="mb-4">This is the single most effective strategy for difficult people. Look at what they use <em>every single day</em>, and buy them the "Rolls Royce" version of it.</p>
+        <p className="mb-4">
+          This is the single most effective strategy for difficult people (Dads, Bosses, Husbands). Look at what they use <em>every single day</em>, and buy them the "Rolls Royce" version of that mundane item.
+        </p>
         <ul className="list-disc pl-6 mb-6 space-y-2">
-          <li><strong>The Mug:</strong> <AmazonLink term="Ember Smart Mug">Ember Smart Mug</AmazonLink>.</li>
-          <li><strong>The Socks:</strong> <AmazonLink term="Darn Tough Merino Wool Socks">Darn Tough Vermont Merino Wool socks</AmazonLink>.</li>
-          <li><strong>The Pen:</strong> <AmazonLink term="Machine Turned Brass Pen">brass machine-turned pen</AmazonLink>.</li>
+          <li><strong>The Mug:</strong> They drink coffee every morning from a chipped, free corporate mug. Buy them an <AmazonLink term="Ember Smart Mug">Ember Smart Mug</AmazonLink> that keeps coffee at exactly 135°F. You just upgraded 20 minutes of their every single morning.</li>
+          <li><strong>The Socks:</strong> They wear cheap cotton socks. Buy them <AmazonLink term="Darn Tough Merino Wool Socks">Darn Tough Vermont Merino Wool socks</AmazonLink> ($25/pair). They will never go back.</li>
+          <li><strong>The Pen:</strong> They use a disposable Bic. Buy them a heavy <AmazonLink term="Machine Turned Brass Pen">brass machine-turned pen</AmazonLink>. It adds weight and significance to every word they write.</li>
         </ul>
+        <p className="mb-6">
+          <strong>Why this works:</strong> Every time they use that item (which is daily), they get a micro-dopamine hit of quality, and they subconsciously think of you. It is a "high-frequency" gift.
+        </p>
+
         {/* --- CLUE INJECTION --- */}
         <div className="my-6 p-4 bg-slate-100 border border-slate-300 rounded-lg text-sm font-mono text-slate-600">
           <p><strong>🕵️‍♂️ HUNT CLUE #2:</strong> If you are looking for the Golden Lamp, you need the second key. The second digit of the code is the <strong>Item Weight</strong> (in ounces) of the Ember Mug 2 listed on Amazon. <AmazonLink term="Ember Smart Mug 2">Click here to find it.</AmazonLink></p>
         </div>
+        {/* ---------------------- */}
+
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">2. Solving the "Unspoken Complaint"</h4>
-        <p className="mb-4">People constantly broadcast their problems. Tune your frequency.</p>
-        <p className="mb-4"><em>"My phone is always dying by 2 PM."</em> &rarr; <strong>Gift:</strong> <AmazonLink term="MagSafe Battery Pack">MagSafe battery pack</AmazonLink>.<br/><em>"It's so cold here."</em> &rarr; <strong>Gift:</strong> <AmazonLink term="Heated Desk Pad">heated desk pad</AmazonLink>.<br/><em>"I can never find my keys."</em> &rarr; <strong>Gift:</strong> An <AmazonLink term="Apple AirTag">AirTag</AmazonLink> in a leather keychain.</p>
-        <p className="mb-6">When you solve a friction point in their life, the gift stops being an "object" and starts being a "solution." You are gifting them <strong>relief</strong>. That generates a much deeper emotional bond than a generic candle ever could.</p>
+        <p className="mb-4">
+          People constantly broadcast their problems. You just have to tune your frequency to hear them.
+        </p>
+        <p className="mb-4">
+          <em>"My phone is always dying by 2 PM."</em> &rarr; <strong>Gift:</strong> A <AmazonLink term="MagSafe Battery Pack">MagSafe battery pack</AmazonLink>.
+          <br />
+          <em>"It's so cold in this office."</em> &rarr; <strong>Gift:</strong> A <AmazonLink term="Heated Desk Pad">heated desk pad</AmazonLink> or a cashmere shawl.
+          <br />
+          <em>"I can never find my keys."</em> &rarr; <strong>Gift:</strong> An <AmazonLink term="Apple AirTag">AirTag</AmazonLink> in a leather keychain.
+        </p>
+        <p className="mb-6">
+          When you solve a friction point in their life, the gift stops being an "object" and starts being a "solution." You are gifting them <strong>relief</strong>. That generates a much deeper emotional bond than a generic candle ever could.
+        </p>
+
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">3. The Death of the Gift Card</h4>
-        <div className="bg-purple-50 p-6 rounded-xl border-l-4 border-purple-500 mb-6"><strong>The "Lazy Tax":</strong> When you give a gift card, you are essentially saying, "I have $50, but I don't have the time or energy to think about you." It transfers the labor of shopping onto the recipient.</div>
-        <p className="mb-4">If you absolutely must give money (which teens often prefer), wrap it in an experience. Don't just hand over a check. Put the cash inside a puzzle box they have to solve. Or pair the Amazon Gift Card with a specific list of "AI Recommended Books" you think they'd like. Re-inject the effort that the gift card removed.</p>
+        <div className="bg-purple-50 p-6 rounded-xl border-l-4 border-purple-500 mb-6">
+          <strong>The "Lazy Tax":</strong> When you give a gift card, you are essentially saying, "I have $50, but I don't have the time or energy to think about you." It transfers the labor of shopping onto the recipient.
+        </div>
+        <p className="mb-4">
+          If you absolutely must give money (which teens often prefer), wrap it in an experience. Don't just hand over a check. Put the cash inside a puzzle box they have to solve. Or pair the Amazon Gift Card with a specific list of "AI Recommended Books" you think they'd like. Re-inject the effort that the gift card removed.
+        </p>
       </>
     )
   },
@@ -729,19 +765,40 @@ const BLOG_ARTICLES = [
     content: (
       <>
         <h3 className="text-2xl font-bold text-slate-800 mb-4">Perceived Value vs. Actual Cost</h3>
-        <p className="mb-6">There is a secret in the luxury retail world: <strong>Weight = Value.</strong> Humans are biologically wired to associate heaviness with quality. Cheap things are plastic and light; expensive things are glass, metal, stone, and wood.</p>
+        <p className="mb-6">
+          There is a secret in the luxury retail world: <strong>Weight = Value.</strong> Humans are biologically wired to associate heaviness with quality. Cheap things are plastic and light; expensive things are glass, metal, stone, and wood.
+        </p>
+        <p className="mb-6">
+          If you are on a strict budget (under $50), you must avoid categories where $50 buys you the "bottom tier" (like electronics) and target categories where $50 buys you the "top tier" (like groceries or stationery).
+        </p>
+
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">1. The "Top Shelf" Grocery Hack</h4>
-        <p className="mb-4">If you buy a $40 bottle of premium, <AmazonLink term="Brightland Olive Oil">cold-pressed olive oil</AmazonLink>, it feels like a royal gift. The recipient would never buy it for themselves because it feels "too extravagant." That is the sweet spot.</p>
-        <p className="mb-6"><strong>Examples:</strong> <AmazonLink term="Manuka Honey">Manuka Honey</AmazonLink>, <AmazonLink term="Truffle Salt">Truffle Salt</AmazonLink>, Single-Origin Coffee Beans, imported French Butter cookies in a metal tin.</p>
+        <p className="mb-4">
+          $50 is a terrible budget for a pair of headphones. They will break. But $50 is an <em>insane</em> budget for a jar of jam or a bottle of olive oil.
+        </p>
+        <p className="mb-4">
+          If you buy a $40 bottle of premium, <AmazonLink term="Brightland Olive Oil">cold-pressed olive oil</AmazonLink> in a beautiful ceramic bottle, it feels like a royal gift. The recipient would never buy it for themselves because it feels "too extravagant." That is the sweet spot. You are giving them permission to indulge in a daily luxury.
+        </p>
+        <p className="mb-6">
+          <strong>Examples:</strong> <AmazonLink term="Manuka Honey">Manuka Honey</AmazonLink>, <AmazonLink term="Truffle Salt">Truffle Salt</AmazonLink>, Single-Origin Coffee Beans, imported French Butter cookies in a metal tin.
+        </p>
+
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">2. The "Kit" Strategy (Bundling)</h4>
-        <p className="mb-4">A single $30 item looks lonely. But three $10 items packaged together look like a "Curated Experience." This is how you beat the system.</p>
+        <p className="mb-4">
+          A single $30 item looks lonely. But three $10 items packaged together look like a "Curated Experience." This is how you beat the system.
+        </p>
         <ul className="list-disc pl-6 mb-6 space-y-2">
-          <li><strong>The Movie Night Kit:</strong> A <AmazonLink term="Reusable Popcorn Tub">reusable popcorn tub</AmazonLink>, <AmazonLink term="Amish Country Popcorn Kernels">gourmet kernels</AmazonLink>, and a "Movie Trivia" card deck.</li>
-          <li><strong>The Spa Night Kit:</strong> A real eucalyptus branch, a high-end <AmazonLink term="Da Bomb Bath Bomb">bath bomb</AmazonLink>, a specific face mask, and a small candle.</li>
+          <li><strong>The Movie Night Kit:</strong> A <AmazonLink term="Reusable Popcorn Tub">reusable popcorn tub</AmazonLink> ($8), a jar of <AmazonLink term="Amish Country Popcorn Kernels">gourmet kernels</AmazonLink> ($6), specialized popcorn seasoning ($5), and a "Movie Trivia" card deck ($10). Total cost: $29. Perceived value: $60.</li>
+          <li><strong>The Spa Night Kit:</strong> Do not buy the pre-made kits at Walmart (they look cheap). Build your own. A real eucalyptus branch ($5), a high-end <AmazonLink term="Da Bomb Bath Bomb">bath bomb</AmazonLink> ($8), a specific face mask ($5), and a small candle ($12). Pack it in a wooden crate or a nice basket.</li>
         </ul>
+
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8">3. Material Science: Glass, Wood, Metal</h4>
-        <p className="mb-4">Avoid plastic at all costs. Plastic signals "disposable."</p>
-        <div className="bg-pink-50 p-6 rounded-xl border-l-4 border-pink-500 mb-6"><strong>The "Decanter" Cheat Code:</strong> <AmazonLink term="Crystal Whiskey Decanter">Crystal-style glass decanter</AmazonLink> on Amazon for $25. It looks like a $200 piece.</div>
+        <p className="mb-4">
+          Avoid plastic at all costs. Plastic signals "disposable."
+        </p>
+        <div className="bg-pink-50 p-6 rounded-xl border-l-4 border-pink-500 mb-6">
+          <strong>The "Decanter" Cheat Code:</strong> You can buy a heavy, <AmazonLink term="Crystal Whiskey Decanter">crystal-style glass decanter</AmazonLink> on Amazon for $25. It looks like a $200 Waterford crystal piece. Pair it with a budget bottle of whiskey, and the heavy glass elevates the entire gift. The weight implies luxury.
+        </div>
       </>
     )
   }
@@ -761,7 +818,6 @@ export default function Home() {
   useEffect(() => { setIsMounted(true); }, []);
 
   // Mock data generator
-  // FOUNDER OVERRIDE: Inject Dream Journal for specific keywords
   const generateMockGifts = (q: string) => {
     const lowerQ = q.toLowerCase();
     const isDreamTrigger = ['dream', 'journal', 'writing', 'spiritual', 'mindful', 'anxiety'].some(k => lowerQ.includes(k));
@@ -901,7 +957,7 @@ export default function Home() {
           </div>
 
           <footer className="w-full py-8 border-t border-slate-200 mt-auto text-center">
-             <div className="flex justify-center gap-6 text-sm text-slate-500 mb-4"><button className="hover:text-slate-800 underline">Privacy Policy</button><span>•</span><button className="hover:text-slate-800 underline">Terms of Service</button><span>•</span><span>Contact: support@giftgenie-ai.com</span></div>
+             <div className="flex justify-center gap-6 text-sm text-slate-500 mb-4"><button className="hover:text-slate-800 underline">Privacy Policy</button><span>•</span><button className="hover:text-slate-800 underline">Terms of Service</button><span>•</span><span>Contact: steviezillosophy@gmail.com</span></div>
              <p className="text-xs text-slate-400">© 2025 Illosophy Multimedia. All rights reserved.</p>
           </footer>
         </div>
