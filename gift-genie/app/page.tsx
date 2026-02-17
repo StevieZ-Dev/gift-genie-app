@@ -600,7 +600,10 @@ const GiftTrio = ({ data }: { data: any[] }) => {
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-10">
           <div className="flex flex-col items-center">
-            <span className="text-4xl animate-bounce mb-2">🧞‍♂️✨</span>
+            {/* BRANDED GENIE IN RESULTS */}
+             <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-amber-400 shadow-lg animate-bounce mb-4 bg-white relative">
+               <img src="/logo.jpg" alt="Gift Genie" className="w-full h-full object-cover" />
+             </div>
             <h2 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-yellow-600 mb-2">YOUR 3 WISHES GRANTED</h2>
             <p className="text-slate-500 font-medium">The Genie has spoken.</p>
           </div>
@@ -636,14 +639,13 @@ const BLOG_ARTICLES = [
     id: 'valentines-top-25',
     icon: Heart,
     color: 'text-rose-600 bg-rose-100',
-    // CHANGED TO EVERGREEN TITLE
-    title: "The 25 Ultimate Trending Gifts Of 2026 (Viral & Aesthetic)",
+    title: "The Ultimate 25 Trending Valentine's Day Gifts (Viral & Aesthetic)",
     videoId: "PRO4akSlTw8", 
     content: (
       <>
-        <h3 className="text-2xl font-bold text-slate-800 mb-4">Beyond the Basic: The 2026 Viral Gift Guide</h3>
+        <h3 className="text-2xl font-bold text-slate-800 mb-4">Beyond Roses: The Viral Gift Guide</h3>
         <p className="mb-6">
-          Gifting in 2026 isn't about generic department store finds. It's about "Aesthetic Utility" and "Hyper-Niche" interests. Thanks to viral TikTok trends and Pinterest "Cozy Core" boards, specific items have become social currency. Below is the curated list of the top 25 most searched, wished-for, and viral gifts taking over the internet right now.
+          Valentine's Day 2025 isn't about generic chocolates from the pharmacy. It's about "Aesthetic Love Languages." Thanks to TikTok trends like "Burnt Toast Theory" and the "Orange Peel Theory," acts of service and hyper-specific aesthetic gifts are winning. Below is the curated list of the top 25 most searched, wished-for, and viral gifts right now.
         </p>
         <h4 className="text-xl font-bold text-slate-800 mb-3 mt-8 border-b pb-2">❤️ The "Forever Flowers" Trend</h4>
         <ul className="list-disc pl-6 mb-6 space-y-2">
@@ -969,7 +971,7 @@ export default function Home() {
         <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
           <div className="bg-white border-b sticky top-0 z-40 shadow-sm">
              <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-                <div className="flex items-center gap-2"><div className="w-8 h-8 relative rounded-lg overflow-hidden"><img src="/logo.jpg" alt="Logo" className="w-full h-full object-cover" /></div><span className="font-bold text-xl">GiftGenie</span></div>
+                <div className="flex items-center gap-2"><div className="w-8 h-8 relative rounded-lg overflow-hidden border-2 border-amber-400 shadow-md"><img src="/logo.jpg" alt="Logo" className="w-full h-full object-cover" /></div><span className="font-bold text-xl">GiftGenie</span></div>
                 <button onClick={() => setShowResults(false)} className="text-sm font-semibold text-slate-500 hover:text-blue-600 flex items-center gap-1">← New Search</button>
              </div>
           </div>
